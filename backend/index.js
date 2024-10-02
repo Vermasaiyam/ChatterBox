@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import connectDB from "./utils/db.js";
 import userRoutes from "./routes/user.routes.js"
 import postRoutes from "./routes/post.routes.js"
+import messageRoutes from "./routes/message.routes.js"
 dotenv.config({});
 
 const PORT = process.env.PORT || 8000;
@@ -24,6 +25,7 @@ app.use(urlencoded({ extended: true }));
 
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
+app.use('/api/message', messageRoutes);
 
 const corsOptions = {
     origin: 'http://localhost:5173',
