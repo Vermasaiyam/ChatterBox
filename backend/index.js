@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from 'dotenv';
 import connectDB from "./utils/db.js";
+import userRoutes from "./routes/user.routes.js"
 dotenv.config({});
 
 const PORT = process.env.PORT || 8000;
@@ -19,6 +20,8 @@ app.get('/', (req,res)=>{
 app.use(express.json());
 app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
+
+app.use('/api/user', userRoutes);
 
 const corsOptions = {
     origin: 'http://localhost:5173',

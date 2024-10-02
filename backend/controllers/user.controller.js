@@ -173,7 +173,7 @@ export const getSuggestedUsers = async (req, res) => {
     }
 };
 
-export const follorOrUnfollow = async (req, res) => {
+export const followOrUnfollow = async (req, res) => {
     try {
         const userId = req.id; 
         const targetUserId = req.params.id;
