@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import dotenv from 'dotenv';
 import connectDB from "./utils/db.js";
 import userRoutes from "./routes/user.routes.js"
+import postRoutes from "./routes/post.routes.js"
 dotenv.config({});
 
 const PORT = process.env.PORT || 8000;
@@ -22,6 +23,7 @@ app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
 
 app.use('/api/user', userRoutes);
+app.use('/api/post', postRoutes);
 
 const corsOptions = {
     origin: 'http://localhost:5173',
