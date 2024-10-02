@@ -10,7 +10,7 @@ export const sendMessage = async (req, res) => {
         let conversation = await Conversation.findOne({
             participants: { $all: [senderId, receiverId] }
         });
-        // establish the conversation if not started yet.
+        // if no conversation found
         if (!conversation) {
             conversation = await Conversation.create({
                 participants: [senderId, receiverId]
@@ -25,7 +25,7 @@ export const sendMessage = async (req, res) => {
 
         await Promise.all([conversation.save(), newMessage.save()])
 
-        // implement socket io for real time data transfer
+        // socket io
         // const receiverSocketId = getReceiverSocketId(receiverId);
         // if(receiverSocketId){
         //     io.to(receiverSocketId).emit('newMessage', newMessage);
