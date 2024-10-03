@@ -56,10 +56,10 @@ const LeftSidebar = () => {
     },
   ]
   const favouritesItems = [
-    { icon: <Search />, text: "Search" },
-    { icon: <TrendingUp />, text: "Feed" },
+    // { icon: <Search />, text: "Search" },
     { icon: <MessageCircle />, text: "Messages" },
     { icon: <Bell />, text: "Notifications" },
+    { icon: <TrendingUp />, text: "Feed" },
     { icon: <PlusSquare />, text: "Create" },
     { icon: <LogOut />, text: "Logout" },
   ]
