@@ -1,6 +1,7 @@
 import React from 'react'
 import Main from './Main'
 import { Outlet } from 'react-router-dom'
+import RightSidebar from './RightSidebar'
 
 const Home = () => {
   return (
@@ -9,7 +10,7 @@ const Home = () => {
         <Main />
         <Outlet />
       </div>
-      {/* <RightSidebar /> */}
+      <RightSidebar />
     </div>
   )
 }
