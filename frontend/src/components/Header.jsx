@@ -3,10 +3,11 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Bell } from 'lucide-react'
 
 const Header = () => {
+
     return (
-        <nav className="flex items-center justify-between h-[4rem] px-6 bg-white shadow-md">
+        <nav className="fixed w-full flex items-center justify-between h-[4rem] px-6 bg-white shadow-md">
             {/* Left Side */}
-            <div className="flex items-center">
+            <div className="flex items-center cursor-pointer">
                 <span className="text-blue-500 text-6xl font-bold"><img src="logo.png" alt="ChatterBox" className='h-[5rem] w-[11rem]' /></span>
             </div>
 
@@ -35,7 +36,7 @@ const Header = () => {
 
             <div className="flex items-center space-x-6 mx-3">
                 <button className="relative">
-                    <Bell className='w-7 h-7 '/>
+                    <Bell className='w-7 h-7 ' />
                     <span className="absolute top-0 right-0 -mr-1 -mt-1 bg-red-500 rounded-full text-white text-xs w-4 h-4 flex items-center justify-center">
                         3
                     </span>
