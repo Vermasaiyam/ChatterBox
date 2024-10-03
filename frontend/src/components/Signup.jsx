@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Loader2 } from 'lucide-react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import axios from 'axios';
+import { toast } from 'sonner';
 
 const Signup = () => {
     const [show, setShow] = useState(false);
@@ -15,6 +17,40 @@ const Signup = () => {
         password: ""
     });
     const [loading, setLoading] = useState(false);
+    // const navigate = useNavigate();
+
+    const changeEventHandler = (e) => {
+        setInput({ ...input, [e.target.name]: e.target.value });
+    }
+
+    const signupHandler = async (e) => {
+        e.preventDefault();
+        console.log(input);
+        try {
+            setLoading(true);
+            const result = await axios.post('http://localhost:8000/api/user/register', input, {
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true,
+            })
+            if (res.data.success) {
+                // navigate("/login");
+                toast.success(res.data.message);
+                setInput({
+                    username: "",
+                    email: "",
+                    password: ""
+                });
+            }
+            setLoading(false);
+            
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message);
+        }
+        
+    }
 
     return (
         <div className='flex flex-col items-center w-screen h-screen justify-center'>
@@ -22,7 +58,7 @@ const Signup = () => {
                 <h1 className='text-center font-bold text-xl m-3'><img src="logo.png" alt="ChatterBox" className='h-[5rem] w-[11rem]' /></h1>
             </div>
             <form
-                // onSubmit={signupHandler} 
+                onSubmit={signupHandler} 
                 className='shadow-lg flex flex-col gap-5 p-8 py-10'
             >
                 <div className='mb-1 -mt-12'>
@@ -34,8 +70,8 @@ const Signup = () => {
                     <Input
                         type="text"
                         name="username"
-                        // value={input.username}
-                        // onChange={changeEventHandler}
+                        value={input.username}
+                        onChange={changeEventHandler}
                         className="focus-visible:ring-transparent my-2 border border-gray-300 rounded-md"
                     />
                 </div>
@@ -44,8 +80,8 @@ const Signup = () => {
                     <Input
                         type="email"
                         name="email"
-                        // value={input.email}
-                        // onChange={changeEventHandler}
+                        value={input.email}
+                        onChange={changeEventHandler}
                         className="focus-visible:ring-transparent my-2 border border-gray-300 rounded-md"
                     />
                 </div>
@@ -55,12 +91,12 @@ const Signup = () => {
                         <Input
                             type={show ? "text" : "password"}
                             name="password"
-                            // value={input.password}
-                            // onChange={changeEventHandler}
+                            value={input.password}
+                            onChange={changeEventHandler}
                             className="focus-visible:ring-transparent my-2 border border-gray-300 rounded-md pr-10"
                         />
                         <button
-                            className="absolute inset-y-0 right-0 flex items-center pr-3 focus:outline-none"
+                            className="absolute inset-y-0 right-0 flex items-center px-3 bg-slate-100 focus:outline-none"
                             onClick={(e) => {
                                 e.preventDefault();
                                 handleClick();
