@@ -16,7 +16,7 @@ const Login = () => {
         password: ""
     });
     const [loading, setLoading] = useState(false);
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
@@ -27,14 +27,14 @@ const Login = () => {
         console.log(input);
         try {
             setLoading(true);
-            const result = await axios.post('http://localhost:8000/api/user/login', input, {
+            const res = await axios.post('http://localhost:8000/api/user/login', input, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 withCredentials: true,
             })
             if (res.data.success) {
-                // navigate("/login");
+                navigate("/");
                 toast.success(res.data.message);
                 setInput({
                     email: "",
@@ -95,16 +95,16 @@ const Login = () => {
                     </div>
 
                 </div>
-                {/* { */}
-                {/* // loading ? ( */}
-                {/* <Button> */}
-                {/* <Loader2 className='mr-2 h-4 w-4 animate-spin' /> */}
-                {/* Please wait */}
-                {/* </Button> */}
-                {/* ) : ( */}
-                <Button type='submit' className="bg-[#042035] hover:bg-[#165686]">Login</Button>
-                {/* ) */}
-                {/* } */}
+                {
+                    loading ? (
+                        <Button>
+                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                            Please wait
+                        </Button>
+                    ) : (
+                        <Button type='submit' className="bg-[#042035] hover:bg-[#165686]">Login</Button>
+                    )
+                }
                 <span className='text-center'>
                     Dosen't have an account?
                     <Link to="/signup" className='text-blue-600 mx-1'>Signup</Link>

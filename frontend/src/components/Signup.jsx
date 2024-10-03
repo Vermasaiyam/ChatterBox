@@ -17,7 +17,7 @@ const Signup = () => {
         password: ""
     });
     const [loading, setLoading] = useState(false);
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
@@ -29,14 +29,14 @@ const Signup = () => {
         try {
             setLoading(true);
             const result = await axios.post('http://localhost:8000/api/user/register', input, {
-                headers:{
+                headers: {
                     'Content-Type': 'application/json'
                 },
                 withCredentials: true,
             })
-            if (res.data.success) {
-                // navigate("/login");
-                toast.success(res.data.message);
+            if (res.success) {
+                navigate("/login");
+                // toast.success(res.data.message);
                 setInput({
                     username: "",
                     email: "",
@@ -44,12 +44,12 @@ const Signup = () => {
                 });
             }
             setLoading(false);
-            
+
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.message);
         }
-        
+
     }
 
     return (
@@ -58,7 +58,7 @@ const Signup = () => {
                 <h1 className='text-center font-bold text-xl m-3'><img src="logo.png" alt="ChatterBox" className='h-[5rem] w-[11rem]' /></h1>
             </div>
             <form
-                onSubmit={signupHandler} 
+                onSubmit={signupHandler}
                 className='shadow-lg flex flex-col gap-5 p-8 py-10'
             >
                 <div className='mb-1 -mt-12'>
@@ -107,16 +107,16 @@ const Signup = () => {
                     </div>
 
                 </div>
-                {/* { */}
-                {/* // loading ? ( */}
-                {/* <Button> */}
-                {/* <Loader2 className='mr-2 h-4 w-4 animate-spin' /> */}
-                {/* Please wait */}
-                {/* </Button> */}
-                {/* ) : ( */}
-                <Button type='submit' className="bg-[#042035] hover:bg-[#165686]">Signup</Button>
-                {/* ) */}
-                {/* } */}
+                {
+                    loading ? (
+                        <Button>
+                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                            Please wait
+                        </Button>
+                    ) : (
+                        <Button type='submit' className="bg-[#042035] hover:bg-[#165686]">Signup</Button>
+                    )
+                }
                 <span className='text-center'>
                     Already have an account?
                     <Link to="/login" className='text-blue-600 mx-1'>Login</Link>
