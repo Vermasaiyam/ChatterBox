@@ -1,6 +1,7 @@
 import Home from './components/Home'
 import Login from './components/Login'
 import MainLayout from './components/MainLayout'
+import Profile from './components/Profile'
 import Signup from './components/Signup'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
@@ -10,8 +11,8 @@ const browserRouter = createBrowserRouter([
     element:
       // <ProtectedRoutes>
       <MainLayout />
-      // </ProtectedRoutes>
-      ,
+    // </ProtectedRoutes>
+    ,
     children: [
       {
         path: '/',
@@ -20,10 +21,13 @@ const browserRouter = createBrowserRouter([
           <Home />
         // </ProtectedRoutes>
       },
-      // {
-      //   path: '/profile/:id',
-      //   element: <ProtectedRoutes> <Profile /></ProtectedRoutes>
-      // },
+      {
+        path: '/profile',
+        element:
+          // <ProtectedRoutes>
+          <Profile />
+        // </ProtectedRoutes>
+      },
       // {
       //   path: '/account/edit',
       //   element: <ProtectedRoutes><EditProfile /></ProtectedRoutes>

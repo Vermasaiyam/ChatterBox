@@ -60,7 +60,7 @@ const Login = () => {
                 className='shadow-lg flex flex-col gap-5 p-8 py-10'
             >
                 <div className='mb-1 -mt-12'>
-                    <h1 className='text-center font-bold text-4xl m-3 mt-5'>Login</h1>
+                    <h1 className='text-center font-bold text-4xl m-3 mt-5'>Login your account</h1>
                     <p className='text-base text-center'>Please log in to your account to proceed.</p>
                 </div>
                 <div>
