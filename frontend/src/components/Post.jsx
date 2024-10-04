@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Dialog, DialogContent, DialogTrigger } from './ui/dialog'
 import { Bookmark, MessageCircle, MoreHorizontal, Send } from 'lucide-react'
@@ -8,8 +8,20 @@ import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
 import axios from 'axios'
 import { toast } from 'sonner'
 import { Badge } from './ui/badge'
+import CommentDialog from './CommentDialog'
 
 const Post = () => {
+    const [text, setText] = useState("");
+
+    const changeEventHandler = (e) => {
+        const inputText = e.target.value;
+        if (inputText.trim()) {
+            setText(inputText);
+        } else {
+            setText("");
+        }
+    }
+
     return (
         <div className='my-16 w-full max-w-sm mx-auto'>
             <div className='flex items-center justify-between'>
@@ -92,18 +104,19 @@ const Post = () => {
                     }} className='cursor-pointer text-sm text-gray-400'>View all {comment.length} comments</span>
                 )
             } */}
-            {/* <CommentDialog /> */}
-            <div className='flex items-center justify-between'>
+            <CommentDialog />
+            <div className='flex items-center justify-between my-2'>
                 <input
                     type="text"
                     placeholder='Add a comment...'
-                    // value={text}
-                    // onChange={changeEventHandler}
+                    value={text}
+                    onChange={changeEventHandler}
                     className='outline-none text-sm w-full'
                 />
-                {/* {
-                    text && <span onClick={commentHandler} className='text-[#3BADF8] cursor-pointer'>Post</span>
-                } */}
+                {
+                    text &&
+                    <span className='text-[#042035] font-semibold cursor-pointer'>Post</span>
+                }
 
             </div>
         </div>
