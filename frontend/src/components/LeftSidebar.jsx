@@ -4,11 +4,14 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux'
 
 const LeftSidebar = () => {
 
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const { user } = useSelector(store => store.auth);
+  const dispatch = useDispatch();
 
   const logoutHandler = async () => {
     try {
@@ -48,7 +51,7 @@ const LeftSidebar = () => {
     {
       icon: (
         <Avatar className='w-6 h-6'>
-          <AvatarImage src='https://github.com/shadcn.png' alt="User Profile Image" />
+          <AvatarImage src={user?.profilePicture} alt={user?.username} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       ),
