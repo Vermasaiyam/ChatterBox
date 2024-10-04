@@ -12,6 +12,7 @@ import CommentDialog from './CommentDialog'
 
 const Post = () => {
     const [text, setText] = useState("");
+    const [open, setOpen] = useState(false);
 
     const changeEventHandler = (e) => {
         const inputText = e.target.value;
@@ -73,10 +74,10 @@ const Post = () => {
                     <FaRegThumbsUp size={'22px'} className='cursor-pointer hover:text-gray-600' />
 
                     <MessageCircle
-                        // onClick={() => {
-                        //     dispatch(setSelectedPost(post));
-                        //     setOpen(true);
-                        // }} 
+                        onClick={() => {
+                            // dispatch(setSelectedPost(post));
+                            setOpen(true);
+                        }} 
                         className='cursor-pointer hover:text-gray-600'
                     />
                     <Send className='cursor-pointer hover:text-gray-600' />
@@ -95,7 +96,7 @@ const Post = () => {
                 {/* {post.caption} */}
                 <p className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, sed!</p>
             </p>
-            <span>view all 10 comments</span>
+            <span onClick={()=> setOpen(true)} className='cursor-pointer text-sm text-gray-500'>view all 10 comments</span>
             {/* {
                 comment.length > 0 && (
                     <span onClick={() => {
@@ -104,7 +105,7 @@ const Post = () => {
                     }} className='cursor-pointer text-sm text-gray-400'>View all {comment.length} comments</span>
                 )
             } */}
-            <CommentDialog />
+            <CommentDialog open={open} setOpen={setOpen} />
             <div className='flex items-center justify-between my-2'>
                 <input
                     type="text"
