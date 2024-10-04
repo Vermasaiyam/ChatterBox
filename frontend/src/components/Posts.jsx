@@ -3,7 +3,7 @@ import Post from './Post'
 
 const Posts = () => {
   return (
-    <div>
+    <div >
       {
         [1, 2, 3, 4].map((item, index) =>
           <Post key={index} />

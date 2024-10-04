@@ -5,7 +5,7 @@ import { Bell } from 'lucide-react'
 const Header = () => {
 
     return (
-        <nav className="fixed w-full flex items-center justify-between h-[4rem] px-6 bg-white shadow-md">
+        <nav className="fixed w-full flex items-center justify-between h-[4rem] px-6 bg-white shadow-md z-10">
             {/* Left Side */}
             <div className="flex items-center cursor-pointer">
                 <span className="text-blue-500 text-6xl font-bold"><img src="logo.png" alt="ChatterBox" className='h-[5rem] w-[11rem]' /></span>
