@@ -3,7 +3,8 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Dialog, DialogContent, DialogTrigger } from './ui/dialog'
 import { Bookmark, MessageCircle, MoreHorizontal, Send } from 'lucide-react'
 import { Button } from './ui/button'
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+// import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
 import axios from 'axios'
 import { toast } from 'sonner'
 import { Badge } from './ui/badge'
@@ -38,9 +39,9 @@ const Post = () => {
                         {/* {
                             user && user?._id === post?.author._id && 
                             } */}
-                        <Button 
-                        // onClick={deletePostHandler} 
-                        variant='ghost' className="cursor-pointer w-fit">Delete</Button>
+                        <Button
+                            // onClick={deletePostHandler} 
+                            variant='ghost' className="cursor-pointer w-fit">Delete</Button>
                     </DialogContent>
                 </Dialog>
             </div>
@@ -50,48 +51,61 @@ const Post = () => {
                 src='https://plus.unsplash.com/premium_photo-1685736630644-488e8146a3dc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8'
                 alt="Post"
             />
-{/* 
+
             <div className='flex items-center justify-between my-2'>
                 <div className='flex items-center gap-3'>
-                    {
-                        liked ? <FaHeart onClick={likeOrDislikeHandler} size={'24'} className='cursor-pointer text-red-600' /> : <FaRegHeart onClick={likeOrDislikeHandler} size={'22px'} className='cursor-pointer hover:text-gray-600' />
-                    }
+                    {/* {
+                        liked ? 
+                    <FaThumbsUp size={'24'} className='cursor-pointer text-[#042035]' /> :
+                    } */}
+                    <FaRegThumbsUp size={'22px'} className='cursor-pointer hover:text-gray-600' />
 
-                    <MessageCircle onClick={() => {
-                        dispatch(setSelectedPost(post));
-                        setOpen(true);
-                    }} className='cursor-pointer hover:text-gray-600' />
+                    <MessageCircle
+                        // onClick={() => {
+                        //     dispatch(setSelectedPost(post));
+                        //     setOpen(true);
+                        // }} 
+                        className='cursor-pointer hover:text-gray-600'
+                    />
                     <Send className='cursor-pointer hover:text-gray-600' />
                 </div>
-                <Bookmark onClick={bookmarkHandler} className='cursor-pointer hover:text-gray-600' />
+                <Bookmark
+                    // onClick={bookmarkHandler} 
+                    className='cursor-pointer hover:text-gray-600' />
             </div>
-            <span className='font-medium block mb-2'>{postLike} likes</span>
+
+            <span className='font-medium block mb-2'>1k likes</span>
             <p>
-                <span className='font-medium mr-2'>{post.author?.username}</span>
-                {post.caption}
+                <span className='font-medium text-lg'>
+                    {/* {post.author?.username} */}
+                    Lorem, ipsum.
+                </span><br />
+                {/* {post.caption} */}
+                <p className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, sed!</p>
             </p>
-            {
+            <span>view all 10 comments</span>
+            {/* {
                 comment.length > 0 && (
                     <span onClick={() => {
                         dispatch(setSelectedPost(post));
                         setOpen(true);
                     }} className='cursor-pointer text-sm text-gray-400'>View all {comment.length} comments</span>
                 )
-            }
-            <CommentDialog open={open} setOpen={setOpen} />
+            } */}
+            {/* <CommentDialog /> */}
             <div className='flex items-center justify-between'>
                 <input
                     type="text"
                     placeholder='Add a comment...'
-                    value={text}
-                    onChange={changeEventHandler}
+                    // value={text}
+                    // onChange={changeEventHandler}
                     className='outline-none text-sm w-full'
                 />
-                {
+                {/* {
                     text && <span onClick={commentHandler} className='text-[#3BADF8] cursor-pointer'>Post</span>
-                }
+                } */}
 
-            </div> */}
+            </div>
         </div>
     )
 }
