@@ -4,14 +4,17 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Link } from 'react-router-dom'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from './ui/button'
-// import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 // import Comment from './Comment'
 import axios from 'axios'
 import { toast } from 'sonner'
-// import { setPosts } from '@/redux/postSlice'
+import { setPosts } from '@/redux/postSlice'
 
 const CommentDialog = ({ open, setOpen }) => {
     const [text, setText] = useState("");
+
+    const { post } = useSelector(store => store.post);
+    const { user } = useSelector(store => store.auth);
 
     const changeEventHandler = (e) => {
         const inputText = e.target.value;
@@ -23,29 +26,29 @@ const CommentDialog = ({ open, setOpen }) => {
     }
 
     const sendMessageHandler = async () => {
+        try {
+            const res = await axios.post(`http://localhost:8000/api/post/${post._id}/comment`, { text }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true,
+            });
+            console.log(res.data);
+            if (res.data.success) {
+                const updatedCommentData = [...comment, res.data.comment];
+                setComment(updatedCommentData);
 
-        // try {
-        //     const res = await axios.post(`https://instaclone-g9h5.onrender.com/api/v1/post/${selectedPost?._id}/comment`, { text }, {
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         withCredentials: true
-        //     });
+                const updatedPostData = posts.map(p =>
+                    p._id === post._id ? { ...p, comments: updatedCommentData } : p
+                );
 
-        //     if (res.data.success) {
-        //         const updatedCommentData = [...comment, res.data.comment];
-        //         setComment(updatedCommentData);
-
-        //         const updatedPostData = posts.map(p =>
-        //             p._id === selectedPost._id ? { ...p, comments: updatedCommentData } : p
-        //         );
-        //         dispatch(setPosts(updatedPostData));
-        //         toast.success(res.data.message);
-        //         setText("");
-        //     }
-        // } catch (error) {
-        //     console.log(error);
-        // }
+                dispatch(setPosts(updatedPostData));
+                toast.success(res.data.message);
+                setText("");
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -65,14 +68,14 @@ const CommentDialog = ({ open, setOpen }) => {
                             <div className='flex gap-3 items-center'>
                                 <Link>
                                     <Avatar>
-                                        <AvatarImage src='https://github.com/shadcn.png' />
+                                        <AvatarImage src="" />
                                         <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
                                 </Link>
                                 <div>
                                     <Link className='font-semibold text-xs'>
+                                    username
                                         {/* {selectedPost?.author?.username} */}
-                                        username
                                     </Link>
                                 </div>
                             </div>
