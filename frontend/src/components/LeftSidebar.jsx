@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux'
 import CreatePost from './CreatePost'
+import { toast } from 'sonner'
+import { setAuthUser } from '@/redux/authSlice'
 
 const LeftSidebar = () => {
 
