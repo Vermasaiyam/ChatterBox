@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux'
+import CreatePost from './CreatePost'
 
 const LeftSidebar = () => {
 
@@ -133,7 +134,7 @@ const LeftSidebar = () => {
         </div>
       </div>
 
-      {/* <CreatePost open={open} setOpen={setOpen} /> */}
+      <CreatePost open={open} setOpen={setOpen} />
 
     </div>
   )
