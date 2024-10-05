@@ -46,7 +46,7 @@ const CommentDialog = ({ open, setOpen }) => {
                 setComment(updatedCommentData);
 
                 const updatedPostData = posts.map(p =>
-                    p._id === post._id ? { ...p, comments: updatedCommentData } : p
+                    p._id === selectedPost._id ? { ...p, comments: updatedCommentData } : p
                 );
 
                 dispatch(setPosts(updatedPostData));
@@ -108,7 +108,20 @@ const CommentDialog = ({ open, setOpen }) => {
                         </div>
                         <div className='p-4'>
                             <div className='flex items-center gap-2'>
-                                <input type="text" placeholder='Add a comment...' className='w-full outline-none border text-sm border-gray-300 p-2 rounded' value={text} onChange={changeEventHandler} />
+                                <input
+                                    type="text"
+                                    placeholder='Add a comment...'
+                                    className='w-full outline-none border text-sm border-gray-300 p-2 rounded' value={text}
+                                    onChange={changeEventHandler}
+                                    onKeyPress={(e) => {
+                                        if (e.key === 'Enter') {
+                                            e.preventDefault();
+                                            if (text.trim()) {
+                                                sendMessageHandler();
+                                            }
+                                        }
+                                    }}
+                                />
                                 <Button disabled={!text.trim()} onClick={sendMessageHandler} variant="outline">Send</Button>
                             </div>
                         </div>
