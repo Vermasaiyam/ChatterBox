@@ -1,15 +1,19 @@
 import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Bell } from 'lucide-react'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
+
+    const {user} = useSelector(store => store.auth);
 
     return (
         <nav className="fixed w-full flex items-center justify-between h-[4rem] px-6 bg-white shadow-md z-10">
             {/* Left Side */}
-            <div className="flex items-center cursor-pointer">
+            <Link to="/" className="flex items-center cursor-pointer">
                 <span className="text-blue-500 text-6xl font-bold"><img src="logo.png" alt="ChatterBox" className='h-[5rem] w-[11rem]' /></span>
-            </div>
+            </Link>
 
             {/* Center - Search Bar */}
             <div className="relative flex items-center">
@@ -45,7 +49,7 @@ const Header = () => {
                 {/* Profile Icon/Button */}
                 <button className="cursor-pointer">
                     <Avatar className='w-9 h-9'>
-                        <AvatarImage src='https://github.com/shadcn.png' alt="User Profile Image" />
+                        <AvatarImage src={user?.profilePicture} alt="User Profile Image" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                 </button>
