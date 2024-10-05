@@ -21,10 +21,6 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth:authSlice,
-  post:postSlice,
-  socketio:socketSlice,
-  chat:chatSlice,
-  realTimeNotification:rtnSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
