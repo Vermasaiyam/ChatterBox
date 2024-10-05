@@ -20,6 +20,7 @@ const Post = ({ post }) => {
     const [open, setOpen] = useState(false);
     const [liked, setLiked] = useState(post.likes.includes(user?._id) || false);
     const [postLike, setPostLike] = useState(post.likes.length);
+    const [comment, setComment] = useState(post.comments);
 
     const dispatch = useDispatch();
 
@@ -72,6 +73,32 @@ const Post = ({ post }) => {
                 );
                 dispatch(setPosts(updatedPostData));
                 toast.success(res.data.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const commentHandler = async () => {
+        try {
+            const res = await axios.post(`http://localhost:8000/api/post/${post._id}/comment`, { text }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true,
+            });
+            console.log(res.data);
+            if (res.data.success) {
+                const updatedCommentData = [...comment, res.data.comment];
+                setComment(updatedCommentData);
+
+                const updatedPostData = posts.map(p =>
+                    p._id === post._id ? { ...p, comments: updatedCommentData } : p
+                );
+
+                dispatch(setPosts(updatedPostData));
+                toast.success(res.data.message);
+                setText("");
             }
         } catch (error) {
             console.log(error);
@@ -157,15 +184,14 @@ const Post = ({ post }) => {
 
                 <p className='text-sm'>{post.caption}</p>
             </p>
-            <span onClick={() => setOpen(true)} className='cursor-pointer text-sm text-gray-500'>view all 10 comments</span>
-            {/* {
+            {
                 comment.length > 0 && (
                     <span onClick={() => {
-                        dispatch(setSelectedPost(post));
+                        // dispatch(setSelectedPost(post));
                         setOpen(true);
                     }} className='cursor-pointer text-sm text-gray-400'>View all {comment.length} comments</span>
                 )
-            } */}
+            }
             <CommentDialog open={open} setOpen={setOpen} />
             <div className='flex items-center justify-between my-2'>
                 <input
@@ -177,7 +203,7 @@ const Post = ({ post }) => {
                 />
                 {
                     text &&
-                    <span className='text-[#042035] font-semibold cursor-pointer'>Post</span>
+                    <span onClick={commentHandler} className='text-[#042035] font-semibold cursor-pointer'>Post</span>
                 }
 
             </div>
