@@ -36,7 +36,7 @@ export const addNewPost = async (req, res) => {
         await post.populate({ path: 'author', select: '-password' });
 
         return res.status(201).json({
-            message: 'New post created',
+            message: 'New post added',
             post,
             success: true,
         })

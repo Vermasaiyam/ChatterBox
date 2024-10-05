@@ -9,12 +9,19 @@ import axios from 'axios'
 import { toast } from 'sonner'
 import { Badge } from './ui/badge'
 import CommentDialog from './CommentDialog'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setPosts } from '@/redux/postSlice'
 
 const Post = ({ post }) => {
     const [text, setText] = useState("");
     const [open, setOpen] = useState(false);
     const { user } = useSelector(store => store.auth);
+    const { posts } = useSelector(store => store.post);
+
+    const dispatch = useDispatch();
+
+
+    const [open1, setOpen1] = useState(false);
 
     const changeEventHandler = (e) => {
         const inputText = e.target.value;
@@ -22,6 +29,25 @@ const Post = ({ post }) => {
             setText(inputText);
         } else {
             setText("");
+        }
+    }
+
+    
+    const deletePostHandler = async () => {
+        try {
+            const res = await axios.delete(`http://localhost:8000/api/post/delete/${post?._id}`, { withCredentials: true });
+            // console.log(res);
+            
+            if (res.data.success) {
+                const updatedPostData = posts.filter((postItem) => postItem?._id !== post?._id);
+                dispatch(setPosts(updatedPostData));
+                toast.success(res.data.message);
+            } else {
+                throw new Error("Failed to delete the post"); // Manually throw an error if `success` is not true
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error?.response?.data?.messsage);
         }
     }
 
@@ -38,23 +64,33 @@ const Post = ({ post }) => {
                         {user?._id === post.author._id && <Badge variant="secondary">Author</Badge>}
                     </div>
                 </div>
-                <Dialog>
+                <Dialog open={open1} onOpenChange={setOpen1}>
                     <DialogTrigger asChild>
-                        <MoreHorizontal className='cursor-pointer' />
+                        <MoreHorizontal className='cursor-pointer' onClick={() => setOpen1(true)} />
                     </DialogTrigger>
-                    <DialogContent className="flex flex-col items-center text-sm text-center">
-                        {
-                            post?.author?._id !== user?._id &&
-                            <Button variant='ghost' className="cursor-pointer w-fit text-[#ED4956] font-bold">Unfollow</Button>
-                        }
 
-                        <Button variant='ghost' className="cursor-pointer w-fit">Add to favorites</Button>
-                        {
-                            user && user?._id === post?.author._id &&
+                    <DialogContent
+                        className="flex flex-col items-center text-sm text-center"
+                        onInteractOutside={() => setOpen1(false)} // Close dialog when clicking outside
+                    >
+                        {post?.author?._id !== user?._id && (
+                            <Button variant='ghost' className="cursor-pointer w-fit text-[#ED4956] font-bold">
+                                Unfollow
+                            </Button>
+                        )}
+
+                        <Button variant='ghost' className="cursor-pointer w-fit">
+                            Add to favorites
+                        </Button>
+
+                        {user && user?._id === post?.author._id && (
                             <Button
-                                // onClick={deletePostHandler} 
-                                variant='ghost' className="cursor-pointer w-fit">Delete</Button>
-                        }
+                                onClick={deletePostHandler} // Close dialog after deleting post
+                                variant='ghost' className="cursor-pointer w-fit"
+                            >
+                                Delete
+                            </Button>
+                        )}
                     </DialogContent>
                 </Dialog>
             </div>

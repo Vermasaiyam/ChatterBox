@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { readFileAsDataURL } from '@/lib/utils';
+import { setPosts } from '@/redux/postSlice';
 
 const CreatePost = ({ open, setOpen }) => {
     const imageRef = useRef();
@@ -15,7 +16,9 @@ const CreatePost = ({ open, setOpen }) => {
     const [caption, setCaption] = useState("");
     const [imagePreview, setImagePreview] = useState("");
     const [loading, setLoading] = useState(false);
+
     const { user } = useSelector(store => store.auth);
+    const { posts } = useSelector(store => store.post);
 
     const dispatch = useDispatch();
 
@@ -41,13 +44,14 @@ const CreatePost = ({ open, setOpen }) => {
                 withCredentials: true
             });
             if (res.data.success) {
-                // dispatch(setPosts([res.data.post, ...posts]));// [1] -> [1,2] -> total element = 2
+                dispatch(setPosts([res.data.post, ...posts]));
                 toast.success(res.data.message);
                 setOpen(false);
             }
-            setLoading(false);
         } catch (error) {
             toast.error(error.response.data.message);
+        } finally {
+            setLoading(false);
         }
     }
 
