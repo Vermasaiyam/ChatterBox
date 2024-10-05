@@ -9,10 +9,12 @@ import axios from 'axios'
 import { toast } from 'sonner'
 import { Badge } from './ui/badge'
 import CommentDialog from './CommentDialog'
+import { useSelector } from 'react-redux'
 
-const Post = () => {
+const Post = ({ post }) => {
     const [text, setText] = useState("");
     const [open, setOpen] = useState(false);
+    const { user } = useSelector(store => store.auth);
 
     const changeEventHandler = (e) => {
         const inputText = e.target.value;
@@ -28,14 +30,12 @@ const Post = () => {
             <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-2'>
                     <Avatar>
-                        {/* <AvatarImage src={post.author?.profilePicture} alt="post_image" /> */}
-                        <AvatarImage src='' alt="post_image" />
+                        <AvatarImage src={post.author?.profilePicture} alt="post_image" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <div className='flex items-center gap-3'>
-                        {/* <h1>{post.author?.username}</h1> */}
-                        <h1>username</h1>
-                        {/* {user?._id === post.author._id && <Badge variant="secondary">Author</Badge>} */}
+                        <h1>{post.author?.username}</h1>
+                        {user?._id === post.author._id && <Badge variant="secondary">Author</Badge>}
                     </div>
                 </div>
                 <Dialog>
@@ -43,25 +43,24 @@ const Post = () => {
                         <MoreHorizontal className='cursor-pointer' />
                     </DialogTrigger>
                     <DialogContent className="flex flex-col items-center text-sm text-center">
-                        {/* {
-                            post?.author?._id !== user?._id && 
-                        } */}
-                        <Button variant='ghost' className="cursor-pointer w-fit text-[#ED4956] font-bold">Unfollow</Button>
+                        {
+                            post?.author?._id !== user?._id &&
+                            <Button variant='ghost' className="cursor-pointer w-fit text-[#ED4956] font-bold">Unfollow</Button>
+                        }
 
                         <Button variant='ghost' className="cursor-pointer w-fit">Add to favorites</Button>
-                        {/* {
-                            user && user?._id === post?.author._id && 
-                            } */}
-                        <Button
-                            // onClick={deletePostHandler} 
-                            variant='ghost' className="cursor-pointer w-fit">Delete</Button>
+                        {
+                            user && user?._id === post?.author._id &&
+                            <Button
+                                // onClick={deletePostHandler} 
+                                variant='ghost' className="cursor-pointer w-fit">Delete</Button>
+                        }
                     </DialogContent>
                 </Dialog>
             </div>
             <img
                 className='rounded-sm my-2 w-full aspect-square object-cover'
-                // src={post.image}
-                src='https://plus.unsplash.com/premium_photo-1685736630644-488e8146a3dc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8'
+                src={post.image}
                 alt="Post"
             />
 
@@ -77,7 +76,7 @@ const Post = () => {
                         onClick={() => {
                             // dispatch(setSelectedPost(post));
                             setOpen(true);
-                        }} 
+                        }}
                         className='cursor-pointer hover:text-gray-600'
                     />
                     <Send className='cursor-pointer hover:text-gray-600' />
@@ -87,16 +86,15 @@ const Post = () => {
                     className='cursor-pointer hover:text-gray-600' />
             </div>
 
-            <span className='font-medium block mb-2'>1k likes</span>
+            <span className='font-medium block mb-2'>{post?.likes.length} likes</span>
             <p>
-                <span className='font-medium text-lg'>
-                    {/* {post.author?.username} */}
-                    Lorem, ipsum.
+                <span className='font-medium text-base'>
+                    {post.author?.username}
                 </span><br />
-                {/* {post.caption} */}
-                <p className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, sed!</p>
+
+                <p className='text-sm'>{post.caption}</p>
             </p>
-            <span onClick={()=> setOpen(true)} className='cursor-pointer text-sm text-gray-500'>view all 10 comments</span>
+            <span onClick={() => setOpen(true)} className='cursor-pointer text-sm text-gray-500'>view all 10 comments</span>
             {/* {
                 comment.length > 0 && (
                     <span onClick={() => {
