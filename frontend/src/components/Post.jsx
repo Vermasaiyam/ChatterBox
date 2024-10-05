@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import { Badge } from './ui/badge'
 import CommentDialog from './CommentDialog'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPosts } from '@/redux/postSlice'
+import { setPosts, setSelectedPost } from '@/redux/postSlice'
 
 const Post = ({ post }) => {
     const { user } = useSelector(store => store.auth);
@@ -164,7 +164,7 @@ const Post = ({ post }) => {
 
                     <MessageCircle
                         onClick={() => {
-                            // dispatch(setSelectedPost(post));
+                            dispatch(setSelectedPost(post));
                             setOpen(true);
                         }}
                         className='cursor-pointer hover:text-gray-600'
@@ -187,7 +187,7 @@ const Post = ({ post }) => {
             {
                 comment.length > 0 && (
                     <span onClick={() => {
-                        // dispatch(setSelectedPost(post));
+                        dispatch(setSelectedPost(post));
                         setOpen(true);
                     }} className='cursor-pointer text-sm text-gray-400'>View all {comment.length} comments</span>
                 )

@@ -8,13 +8,20 @@ import { useDispatch, useSelector } from 'react-redux'
 // import Comment from './Comment'
 import axios from 'axios'
 import { toast } from 'sonner'
-import { setPosts } from '@/redux/postSlice'
+import { setPosts, setSelectedPost } from '@/redux/postSlice'
 
 const CommentDialog = ({ open, setOpen }) => {
     const [text, setText] = useState("");
+    const [comment, setComment] = useState([]);
 
-    const { post } = useSelector(store => store.post);
-    const { user } = useSelector(store => store.auth);
+    const { selectedPost, posts } = useSelector(store => store.post);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (selectedPost) {
+            setComment(selectedPost.comments);
+        }
+    }, [selectedPost]);
 
     const changeEventHandler = (e) => {
         const inputText = e.target.value;
@@ -27,7 +34,7 @@ const CommentDialog = ({ open, setOpen }) => {
 
     const sendMessageHandler = async () => {
         try {
-            const res = await axios.post(`http://localhost:8000/api/post/${post._id}/comment`, { text }, {
+            const res = await axios.post(`http://localhost:8000/api/post/${selectedPost._id}/comment`, { text }, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -57,8 +64,7 @@ const CommentDialog = ({ open, setOpen }) => {
                 <div className='flex flex-1'>
                     <div className='w-1/2'>
                         <img
-                            // src={selectedPost?.image}
-                            src='https://plus.unsplash.com/premium_photo-1685736630644-488e8146a3dc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8'
+                            src={selectedPost?.image}
                             alt="Post"
                             className='w-full h-full object-cover rounded-l-lg'
                         />
@@ -68,14 +74,13 @@ const CommentDialog = ({ open, setOpen }) => {
                             <div className='flex gap-3 items-center'>
                                 <Link>
                                     <Avatar>
-                                        <AvatarImage src="" />
+                                        <AvatarImage src={selectedPost?.author?.profilePicture} />
                                         <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
                                 </Link>
                                 <div>
                                     <Link className='font-semibold text-xs'>
-                                    username
-                                        {/* {selectedPost?.author?.username} */}
+                                        {selectedPost?.author?.username}
                                     </Link>
                                 </div>
                             </div>
