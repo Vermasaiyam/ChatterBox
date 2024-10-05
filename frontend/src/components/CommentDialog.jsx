@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from './ui/button'
 import { useDispatch, useSelector } from 'react-redux'
-// import Comment from './Comment'
+import Comment from './Comment'
 import axios from 'axios'
 import { toast } from 'sonner'
 import { setPosts, setSelectedPost } from '@/redux/postSlice'
+import { IoSend } from "react-icons/io5";
 
 const CommentDialog = ({ open, setOpen }) => {
     const [text, setText] = useState("");
@@ -61,8 +62,8 @@ const CommentDialog = ({ open, setOpen }) => {
     return (
         <Dialog open={open}>
             <DialogContent onInteractOutside={() => setOpen(false)} className="max-w-5xl p-0 flex flex-col">
-                <div className='flex flex-1'>
-                    <div className='w-1/2'>
+                <div className='flex flex-1  max-h-[25rem]'>
+                    <div className='w-1/2 h-[25rem]'>
                         <img
                             src={selectedPost?.image}
                             alt="Post"
@@ -101,10 +102,9 @@ const CommentDialog = ({ open, setOpen }) => {
                         </div>
                         <hr />
                         <div className='flex-1 overflow-y-auto max-h-96 p-4'>
-                            all comments
-                            {/* {
+                            {
                                 comment.map((comment) => <Comment key={comment._id} comment={comment} />)
-                            } */}
+                            }
                         </div>
                         <div className='p-4'>
                             <div className='flex items-center gap-2'>
@@ -122,7 +122,9 @@ const CommentDialog = ({ open, setOpen }) => {
                                         }
                                     }}
                                 />
-                                <Button disabled={!text.trim()} onClick={sendMessageHandler} variant="outline">Send</Button>
+                                <Button disabled={!text.trim()} onClick={sendMessageHandler} variant="outline" className='text-[#042035] text-2xl'>
+                                    <IoSend style={{ color: '#042035 !important' }} />
+                                </Button>
                             </div>
                         </div>
                     </div>
