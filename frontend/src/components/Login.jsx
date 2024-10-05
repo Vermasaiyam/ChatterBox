@@ -74,6 +74,7 @@ const Login = () => {
                         name="email"
                         value={input.email}
                         onChange={changeEventHandler}
+                        placeholder="Enter your email"
                         className="focus-visible:ring-transparent my-2 border border-gray-300 rounded-md"
                     />
                 </div>
@@ -85,6 +86,7 @@ const Login = () => {
                             name="password"
                             value={input.password}
                             onChange={changeEventHandler}
+                            placeholder="Enter your password"
                             className="focus-visible:ring-transparent my-2 border border-gray-300 rounded-md pr-10"
                         />
                         <button

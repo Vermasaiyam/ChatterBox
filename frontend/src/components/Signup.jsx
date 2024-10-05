@@ -72,6 +72,7 @@ const Signup = () => {
                         name="username"
                         value={input.username}
                         onChange={changeEventHandler}
+                        placeholder="Enter the username"
                         className="focus-visible:ring-transparent my-2 border border-gray-300 rounded-md"
                     />
                 </div>
@@ -82,6 +83,7 @@ const Signup = () => {
                         name="email"
                         value={input.email}
                         onChange={changeEventHandler}
+                        placeholder="Enter the email"
                         className="focus-visible:ring-transparent my-2 border border-gray-300 rounded-md"
                     />
                 </div>
@@ -93,6 +95,7 @@ const Signup = () => {
                             name="password"
                             value={input.password}
                             onChange={changeEventHandler}
+                            placeholder="Enter the password"
                             className="focus-visible:ring-transparent my-2 border border-gray-300 rounded-md pr-10"
                         />
                         <button
