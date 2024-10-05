@@ -1,6 +1,7 @@
 import sharp from "sharp";
 import { Post } from "../models/post.model.js";
 import { User } from "../models/user.model.js";
+import { Comment } from "../models/comment.model.js";
 import cloudinary from "../utils/cloudinary.js";
 
 
