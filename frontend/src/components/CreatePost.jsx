@@ -69,7 +69,7 @@ const CreatePost = ({ open, setOpen }) => {
                         {/* <span className='text-gray-600 text-xs'>Bio here...</span> */}
                     </div>
                 </div>
-                <Textarea value={caption} onChange={(e) => setCaption(e.target.value)} className="focus-visible:ring-transparent border-none resize-none" placeholder="Caption..." />
+                <Textarea value={caption} onChange={(e) => setCaption(e.target.value)} className="focus-visible:ring-transparent border-none resize-none" placeholder="Caption..." disabled={loading}/>
                 {
                     imagePreview && (
                         <div className='w-full h-64 flex items-center justify-center'>
@@ -79,7 +79,7 @@ const CreatePost = ({ open, setOpen }) => {
                 }
                 <input ref={imageRef} type='file' className='hidden' onChange={fileChangeHandler} />
                 {/* on clicking on button input tag will be enabled */}
-                <Button onClick={() => imageRef.current.click()} className='w-fit mx-auto bg-[#042035] hover:bg-[#165686] '>
+                <Button onClick={() => imageRef.current.click()} className='w-fit mx-auto bg-[#042035] hover:bg-[#165686]' disabled={loading}>
                     {
                         imagePreview ? "Change Image" : "Add Image"
                     }

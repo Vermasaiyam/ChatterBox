@@ -13,10 +13,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setPosts } from '@/redux/postSlice'
 
 const Post = ({ post }) => {
-    const [text, setText] = useState("");
-    const [open, setOpen] = useState(false);
     const { user } = useSelector(store => store.auth);
     const { posts } = useSelector(store => store.post);
+
+    const [text, setText] = useState("");
+    const [open, setOpen] = useState(false);
+    const [liked, setLiked] = useState(post.likes.includes(user?._id) || false);
+    const [postLike, setPostLike] = useState(post.likes.length);
 
     const dispatch = useDispatch();
 
@@ -32,22 +35,46 @@ const Post = ({ post }) => {
         }
     }
 
-    
+
     const deletePostHandler = async () => {
         try {
             const res = await axios.delete(`http://localhost:8000/api/post/delete/${post?._id}`, { withCredentials: true });
             // console.log(res);
-            
+
             if (res.data.success) {
                 const updatedPostData = posts.filter((postItem) => postItem?._id !== post?._id);
                 dispatch(setPosts(updatedPostData));
                 toast.success(res.data.message);
             } else {
-                throw new Error("Failed to delete the post"); // Manually throw an error if `success` is not true
+                throw new Error("Failed to delete the post");
             }
         } catch (error) {
             console.log(error);
             toast.error(error?.response?.data?.messsage);
+        }
+    }
+
+    const likeOrDislikeHandler = async () => {
+        try {
+            const action = liked ? 'dislike' : 'like';
+            const res = await axios.get(`http://localhost:8000/api/post/${post._id}/${action}`, { withCredentials: true });
+            console.log(res.data);
+            if (res.data.success) {
+                const updatedLikes = liked ? postLike - 1 : postLike + 1;
+                setPostLike(updatedLikes);
+                setLiked(!liked);
+
+                const updatedPostData = posts.map(p =>
+                    p._id === post._id ? {
+                        ...p,
+                        likes: liked ? p.likes.filter(id => id !== user._id) : [...p.likes, user._id]
+                    } : p
+                );
+                dispatch(setPosts(updatedPostData));
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -102,11 +129,11 @@ const Post = ({ post }) => {
 
             <div className='flex items-center justify-between my-2'>
                 <div className='flex items-center gap-3'>
-                    {/* {
-                        liked ? 
-                    <FaThumbsUp size={'24'} className='cursor-pointer text-[#042035]' /> :
-                    } */}
-                    <FaRegThumbsUp size={'22px'} className='cursor-pointer hover:text-gray-600' />
+                    {
+                        liked ?
+                            <FaThumbsUp onClick={likeOrDislikeHandler} size={'24'} className='cursor-pointer text-[#042035]' /> :
+                            <FaRegThumbsUp onClick={likeOrDislikeHandler} size={'22px'} className='cursor-pointer hover:text-gray-600' />
+                    }
 
                     <MessageCircle
                         onClick={() => {
@@ -122,7 +149,7 @@ const Post = ({ post }) => {
                     className='cursor-pointer hover:text-gray-600' />
             </div>
 
-            <span className='font-medium block mb-2'>{post?.likes.length} likes</span>
+            <span className='font-medium block mb-2'>{postLike} likes</span>
             <p>
                 <span className='font-medium text-base'>
                     {post.author?.username}
