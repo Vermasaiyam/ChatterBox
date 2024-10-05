@@ -58,7 +58,7 @@ const CreatePost = ({ open, setOpen }) => {
     return (
         <Dialog open={open}>
             <DialogContent onInteractOutside={() => setOpen(false)}>
-                <DialogHeader className='text-center font-semibold'>Create New Post</DialogHeader>
+                <DialogHeader className='w-full flex items-center text-center text-lg font-semibold'>Create New Post</DialogHeader>
                 <div className='flex gap-3 items-center'>
                     <Avatar>
                         <AvatarImage src={user?.profilePicture} alt="img" />
