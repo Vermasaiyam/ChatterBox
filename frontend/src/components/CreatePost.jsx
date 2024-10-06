@@ -63,7 +63,7 @@ const CreatePost = ({ open, setOpen }) => {
                 <div className='flex gap-3 items-center'>
                     <Avatar>
                         <AvatarImage src={user?.profilePicture} alt="img" />
-                        <AvatarFallback><InitialsAvatar name={user?.username} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
+                        <AvatarFallback><InitialsAvatar name={user?.username || "CN"} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
                     </Avatar>
                     <div>
                         <h1 className='font-semibold text-xs'>{user?.username}</h1>

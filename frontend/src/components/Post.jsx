@@ -108,12 +108,12 @@ const Post = ({ post }) => {
     }
 
     return (
-        <div className='mt-8 w-full max-w-sm mx-auto bg-white p-4 rounded-xl'>
+        <div className='mt-8 w-full max-w-[26rem] mx-auto bg-white p-4 rounded-xl'>
             <div className='flex items-center justify-between'>
                 <Link to={`/profile/${post.author?._id}`} className='flex items-center gap-2'>
                     <Avatar>
                         <AvatarImage src={post.author?.profilePicture} alt="post_image" />
-                        <AvatarFallback><InitialsAvatar name={post.author?.username} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
+                        <AvatarFallback><InitialsAvatar name={post.author?.username || "CN"} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
                     </Avatar>
                     <div className='flex items-center gap-3'>
                         <h1>{post.author?.username}</h1>

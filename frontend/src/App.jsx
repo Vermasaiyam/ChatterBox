@@ -1,3 +1,4 @@
+import EditProfile from './components/EditProfile'
 import Home from './components/Home'
 import Login from './components/Login'
 import MainLayout from './components/MainLayout'
@@ -28,10 +29,13 @@ const browserRouter = createBrowserRouter([
           <Profile />
         // </ProtectedRoutes>
       },
-      // {
-      //   path: '/account/edit',
-      //   element: <ProtectedRoutes><EditProfile /></ProtectedRoutes>
-      // },
+      {
+        path: '/account/edit',
+        element:
+          // <ProtectedRoutes>
+          <EditProfile />
+          // </ProtectedRoutes>
+      },
       // {
       //   path: '/chat',
       //   element: <ProtectedRoutes><ChatPage /></ProtectedRoutes>

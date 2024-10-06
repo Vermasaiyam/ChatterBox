@@ -51,7 +51,7 @@ const Header = () => {
                 <Link to={`profile/${user?._id}`} className="cursor-pointer">
                     <Avatar className='w-9 h-9'>
                         <AvatarImage src={user?.profilePicture} alt="User Profile Image" />
-                        <AvatarFallback><InitialsAvatar name={user?.username} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
+                        <AvatarFallback><InitialsAvatar name={user?.username || "CN"} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
                     </Avatar>
                 </Link>
             </div>

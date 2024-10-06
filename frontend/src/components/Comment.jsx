@@ -10,7 +10,7 @@ const Comment = ({ comment }) => {
                 <Link to={`/profile/${comment?.author?._id}`}>
                     <Avatar>
                         <AvatarImage src={comment?.author?.profilePicture} />
-                        <AvatarFallback><InitialsAvatar name={comment?.author?.username} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
+                        <AvatarFallback><InitialsAvatar name={comment?.author?.username || "CN"} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
                     </Avatar>
                 </Link>
                 <h1 className='font-bold text-sm'>{comment?.author.username} <span className='font-normal pl-1'>{comment?.text}</span></h1>

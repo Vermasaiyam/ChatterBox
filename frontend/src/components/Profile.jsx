@@ -35,12 +35,12 @@ const Profile = () => {
 
   return (
     <div className='pt-14 flex max-w-5xl justify-center mx-auto pl-10'>
-      <div className='flex flex-col gap-20 p-8'>
+      <div className='flex flex-col gap-10 p-8'>
         <div className='grid grid-cols-2'>
           <section className='flex items-center justify-center'>
             <Avatar className='h-32 w-32'>
               <AvatarImage src={userProfile?.profilePicture} alt="profilephoto" />
-              <AvatarFallback><InitialsAvatar name={userProfile?.username} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full text-4xl" /></AvatarFallback>
+              <AvatarFallback><InitialsAvatar name={userProfile?.username || "CN"} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full text-4xl" /></AvatarFallback>
             </Avatar>
           </section>
           <section>
@@ -72,8 +72,8 @@ const Profile = () => {
                 <p><span className='font-semibold'>{userProfile?.following.length} </span>following</p>
               </div>
               <div className='flex flex-col gap-1'>
-                <span className='font-semibold'>{userProfile?.bio}</span>
                 <Badge className='w-fit cursor-pointer' variant='secondary'><AtSign /> <span className='pl-1'>{userProfile?.username}</span> </Badge>
+                <span className='font-semibold mt-2'>{userProfile?.bio}</span>
               </div>
             </div>
           </section>

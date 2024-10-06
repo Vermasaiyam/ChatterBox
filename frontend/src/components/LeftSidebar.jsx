@@ -58,7 +58,7 @@ const LeftSidebar = () => {
         <Avatar className='w-8 h-8'>
           <AvatarImage src={user?.profilePicture} alt={user?.username} className="w-full h-full rounded-full object-cover" />
           <AvatarFallback className="w-full h-full flex items-center justify-center bg-gray-300 rounded-full">
-            <InitialsAvatar name={user?.username} className="h-full w-full flex items-center justify-center text-sm bg-slate-200 p-2 rounded-full" />
+            <InitialsAvatar name={user?.username || "CN"} className="h-full w-full flex items-center justify-center text-sm bg-slate-200 p-2 rounded-full" />
           </AvatarFallback>
         </Avatar>
       ),

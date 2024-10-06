@@ -77,7 +77,7 @@ const CommentDialog = ({ open, setOpen }) => {
                                 <div>
                                     <Avatar>
                                         <AvatarImage src={selectedPost?.author?.profilePicture} />
-                                        <AvatarFallback><InitialsAvatar name={selectedPost?.author?.username} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
+                                        <AvatarFallback><InitialsAvatar name={selectedPost?.author?.username || "CN"} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
                                     </Avatar>
                                 </div>
                                 <div>
