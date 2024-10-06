@@ -25,9 +25,9 @@ const Profile = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   }
-  
+
   const likedPosts = posts.filter(post => post?.likes?.includes(userId));
-  
+
   const displayedPost = activeTab === 'posts' ? userProfile?.posts : (activeTab === 'saved' ? userProfile?.bookmarks : likedPosts);
   console.log(displayedPost);
 
@@ -83,10 +83,16 @@ const Profile = () => {
             <span className={`py-3 cursor-pointer ${activeTab === 'posts' ? 'font-bold' : ''}`} onClick={() => handleTabChange('posts')}>
               POSTS
             </span>
-            <span className={`py-3 cursor-pointer ${activeTab === 'saved' ? 'font-bold' : ''}`} onClick={() => handleTabChange('saved')}>
-              SAVED
-            </span>
-            <span className={`py-3 cursor-pointer ${activeTab === 'liked' ? 'font-bold' : ''}`} onClick={() => handleTabChange('liked')}>LIKED POSTS</span>
+            {
+              isLoggedInUserProfile && (
+                <>
+                  <span className={`py-3 cursor-pointer ${activeTab === 'saved' ? 'font-bold' : ''}`} onClick={() => handleTabChange('saved')}>
+                    SAVED
+                  </span>
+                  <span className={`py-3 cursor-pointer ${activeTab === 'liked' ? 'font-bold' : ''}`} onClick={() => handleTabChange('liked')}>LIKED POSTS</span>
+                </>
+              )
+            }
           </div>
           <div className='grid grid-cols-3 gap-1'>
             {
