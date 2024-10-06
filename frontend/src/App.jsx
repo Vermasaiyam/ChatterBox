@@ -1,3 +1,4 @@
+import ChatPage from './components/ChatPage'
 import EditProfile from './components/EditProfile'
 import Home from './components/Home'
 import Login from './components/Login'
@@ -36,10 +37,12 @@ const browserRouter = createBrowserRouter([
           <EditProfile />
           // </ProtectedRoutes>
       },
-      // {
-      //   path: '/chat',
-      //   element: <ProtectedRoutes><ChatPage /></ProtectedRoutes>
-      // },
+      {
+        path: '/chat',
+        element: //<ProtectedRoutes>
+          <ChatPage />
+         // </ProtectedRoutes>
+      },
     ]
   },
   {
