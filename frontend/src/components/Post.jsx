@@ -12,6 +12,7 @@ import CommentDialog from './CommentDialog'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPosts, setSelectedPost } from '@/redux/postSlice'
 import { Link } from 'react-router-dom'
+import InitialsAvatar from 'react-initials-avatar';
 
 const Post = ({ post }) => {
     const { user } = useSelector(store => store.auth);
@@ -112,7 +113,7 @@ const Post = ({ post }) => {
                 <Link to={`/profile/${post.author?._id}`} className='flex items-center gap-2'>
                     <Avatar>
                         <AvatarImage src={post.author?.profilePicture} alt="post_image" />
-                        <AvatarFallback>CN</AvatarFallback>
+                        <AvatarFallback><InitialsAvatar name={post.author?.username} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
                     </Avatar>
                     <div className='flex items-center gap-3'>
                         <h1>{post.author?.username}</h1>

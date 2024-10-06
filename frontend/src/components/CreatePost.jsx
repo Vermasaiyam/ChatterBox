@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { readFileAsDataURL } from '@/lib/utils';
 import { setPosts } from '@/redux/postSlice';
+import InitialsAvatar from 'react-initials-avatar';
 
 const CreatePost = ({ open, setOpen }) => {
     const imageRef = useRef();
@@ -62,7 +63,7 @@ const CreatePost = ({ open, setOpen }) => {
                 <div className='flex gap-3 items-center'>
                     <Avatar>
                         <AvatarImage src={user?.profilePicture} alt="img" />
-                        <AvatarFallback>CN</AvatarFallback>
+                        <AvatarFallback><InitialsAvatar name={user?.username} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
                     </Avatar>
                     <div>
                         <h1 className='font-semibold text-xs'>{user?.username}</h1>
