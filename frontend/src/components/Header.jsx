@@ -47,12 +47,12 @@ const Header = () => {
                 </button>
 
                 {/* Profile Icon/Button */}
-                <button className="cursor-pointer">
+                <Link to={`profile/${user?._id}`} className="cursor-pointer">
                     <Avatar className='w-9 h-9'>
                         <AvatarImage src={user?.profilePicture} alt="User Profile Image" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                </button>
+                </Link>
             </div>
         </nav>
     )

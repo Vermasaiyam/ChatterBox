@@ -22,7 +22,7 @@ const browserRouter = createBrowserRouter([
         // </ProtectedRoutes>
       },
       {
-        path: '/profile',
+        path: '/profile/:id',
         element:
           // <ProtectedRoutes>
           <Profile />
