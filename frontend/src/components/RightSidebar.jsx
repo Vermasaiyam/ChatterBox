@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import SuggestedUsers from './SuggestedUsers';
+import InitialsAvatar from 'react-initials-avatar';
 
 const RightSidebar = () => {
   const { user } = useSelector(store => store.auth);
@@ -13,7 +14,7 @@ const RightSidebar = () => {
         <Link to={`/profile/${user?._id}`}>
           <Avatar>
             <AvatarImage src={user?.profilePicture} alt="post_image" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback><InitialsAvatar name={user?.username} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /> </AvatarFallback>
           </Avatar>
         </Link>
         <div>

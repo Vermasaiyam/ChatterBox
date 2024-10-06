@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Bell } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import InitialsAvatar from 'react-initials-avatar';
 
 const Header = () => {
 
@@ -50,7 +51,7 @@ const Header = () => {
                 <Link to={`profile/${user?._id}`} className="cursor-pointer">
                     <Avatar className='w-9 h-9'>
                         <AvatarImage src={user?.profilePicture} alt="User Profile Image" />
-                        <AvatarFallback>CN</AvatarFallback>
+                        <AvatarFallback><InitialsAvatar name={user?.username} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
                     </Avatar>
                 </Link>
             </div>

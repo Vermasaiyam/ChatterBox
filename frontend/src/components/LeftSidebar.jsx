@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import CreatePost from './CreatePost'
 import { toast } from 'sonner'
 import { setAuthUser } from '@/redux/authSlice'
+// import { NameInitialsAvatar } from 'react-name-initials-avatar';
+import InitialsAvatar from 'react-initials-avatar';
 
 const LeftSidebar = () => {
 
@@ -34,16 +36,16 @@ const LeftSidebar = () => {
   const sidebarHandler = (textType) => {
     if (textType === 'Logout') {
       logoutHandler();
-    } 
+    }
     else if (textType === "Create") {
       setOpen(true);
-    } 
+    }
     else if (textType === "Profile") {
       navigate(`/profile/${user?._id}`);
-    } 
+    }
     else if (textType === "Home") {
       navigate("/");
-    } 
+    }
     else if (textType === 'Messages') {
       navigate("/chat");
     }
@@ -53,9 +55,11 @@ const LeftSidebar = () => {
     { icon: <Home />, text: "Home" },
     {
       icon: (
-        <Avatar className='w-6 h-6'>
-          <AvatarImage src={user?.profilePicture} alt={user?.username} />
-          <AvatarFallback>CN</AvatarFallback>
+        <Avatar className='w-8 h-8'>
+          <AvatarImage src={user?.profilePicture} alt={user?.username} className="w-full h-full rounded-full object-cover" />
+          <AvatarFallback className="w-full h-full flex items-center justify-center bg-gray-300 rounded-full">
+            <InitialsAvatar name={user?.username} className="h-full w-full flex items-center justify-center text-sm bg-slate-200 p-2 rounded-full" />
+          </AvatarFallback>
         </Avatar>
       ),
       text: "Profile"
