@@ -34,9 +34,9 @@ const Signup = () => {
                 },
                 withCredentials: true,
             })
-            if (res.success) {
+            if (res.data.success) {
                 navigate("/login");
-                // toast.success(res.data.message);
+                toast.success(res.data.message);
                 setInput({
                     username: "",
                     email: "",
