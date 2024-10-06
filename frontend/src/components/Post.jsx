@@ -11,6 +11,7 @@ import { Badge } from './ui/badge'
 import CommentDialog from './CommentDialog'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPosts, setSelectedPost } from '@/redux/postSlice'
+import { Link } from 'react-router-dom'
 
 const Post = ({ post }) => {
     const { user } = useSelector(store => store.auth);
@@ -108,7 +109,7 @@ const Post = ({ post }) => {
     return (
         <div className='mt-8 w-full max-w-sm mx-auto bg-white p-4 rounded-xl'>
             <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-2'>
+                <Link to={`/profile/${post.author?._id}`} className='flex items-center gap-2'>
                     <Avatar>
                         <AvatarImage src={post.author?.profilePicture} alt="post_image" />
                         <AvatarFallback>CN</AvatarFallback>
@@ -117,7 +118,7 @@ const Post = ({ post }) => {
                         <h1>{post.author?.username}</h1>
                         {user?._id === post.author._id && <Badge variant="secondary">Author</Badge>}
                     </div>
-                </div>
+                </Link>
                 <Dialog open={open1} onOpenChange={setOpen1}>
                     <DialogTrigger asChild>
                         <MoreHorizontal className='cursor-pointer' onClick={() => setOpen1(true)} />
