@@ -9,13 +9,14 @@ const Home = () => {
   useGetAllPost();
   useGetSuggestedUsers();
   return (
-    <div className='flex top-[5rem]'>
-      <div className='flex-grow'>
-        <Main />
+    <div className='flex top-[5rem] bg-slate-100 min-h-screen'>
+      <div className='flex flex-grow items-start justify-between'>
+        <Main className="min-w-[50vw] flex items-center justify-center" />
         <Outlet />
       </div>
       <RightSidebar />
     </div>
+
   )
 }
 

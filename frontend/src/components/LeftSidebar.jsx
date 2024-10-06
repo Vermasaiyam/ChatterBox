@@ -74,7 +74,7 @@ const LeftSidebar = () => {
     { icon: <LogOut />, text: "Logout" },
   ]
   return (
-    <div className='fixed top-[4rem] z-10 left-0 px-4 border-r border-gray-300 w-[16%] h-screen'>
+    <div className='fixed top-[4rem] z-10 left-0 px-4 border-r bg-white border-t border-gray-300 w-[16%] h-screen'>
       <div className='flex flex-col'>
         <div>
           {
@@ -91,10 +91,10 @@ const LeftSidebar = () => {
               )
             })
           }
-        </div>
+        </div><hr />
 
         <div>
-          <h1 className='mb-6 mt-2 pl-3 font-semibold text-2xl'>Favourites</h1>
+          <h1 className='mb-6 mt-4 pl-3 font-semibold text-2xl'>Favourites</h1>
           {
             favouritesItems.map((item, index) => {
               return (
