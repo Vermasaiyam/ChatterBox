@@ -10,6 +10,7 @@ import axios from 'axios'
 import { toast } from 'sonner'
 import { setPosts, setSelectedPost } from '@/redux/postSlice'
 import { IoSend } from "react-icons/io5";
+import InitialsAvatar from 'react-initials-avatar';
 
 const CommentDialog = ({ open, setOpen }) => {
     const [text, setText] = useState("");
@@ -72,19 +73,19 @@ const CommentDialog = ({ open, setOpen }) => {
                     </div>
                     <div className='w-1/2 flex flex-col justify-between'>
                         <div className='flex items-center justify-between p-4'>
-                            <div className='flex gap-3 items-center'>
-                                <Link>
+                            <Link to={`/profile/${selectedPost?.author?._id}`} className='flex gap-3 items-center'>
+                                <div>
                                     <Avatar>
                                         <AvatarImage src={selectedPost?.author?.profilePicture} />
-                                        <AvatarFallback>CN</AvatarFallback>
+                                        <AvatarFallback><InitialsAvatar name={selectedPost?.author?.username} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
                                     </Avatar>
-                                </Link>
+                                </div>
                                 <div>
                                     <Link className='font-semibold text-xs'>
                                         {selectedPost?.author?.username}
                                     </Link>
                                 </div>
-                            </div>
+                            </Link>
 
                             <Dialog>
                                 <DialogTrigger asChild>
