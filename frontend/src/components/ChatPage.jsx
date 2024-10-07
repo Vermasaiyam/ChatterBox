@@ -68,6 +68,7 @@ const ChatPage = () => {
       </section>
       {
         selectedUser ? (
+          
           <section className='flex-1 border-l border-l-gray-300 flex flex-col h-full'>
             <div className='flex gap-3 items-center px-3 py-2 border-b border-gray-300 sticky top-0 bg-white z-10'>
               <Avatar>
@@ -76,11 +77,12 @@ const ChatPage = () => {
               </Avatar>
               <div className='flex flex-col'>
                 <span>{selectedUser?.username}</span>
+                <span className={`text-xs font-bold ${onlineUsers.includes(selectedUser?._id) ? 'text-green-600' : 'text-red-600'} `}>{onlineUsers.includes(selectedUser?._id) ? 'online' : 'offline'}</span>
               </div>
             </div>
             <Messages selectedUser={selectedUser} />
-            <div className='flex items-center p-4 border-t border-t-gray-300'>
-              <Input value={textMessage} onChange={(e) => setTextMessage(e.target.value)} type="text" className='flex-1 mr-2 focus-visible:ring-transparent' placeholder="Messages..."
+            <div className='relative flex items-center p-4 border-t border-t-gray-300'>
+              <Input value={textMessage} onChange={(e) => setTextMessage(e.target.value)} type="text" className='flex-1 mr-2 focus-visible:ring-transparent rounded-3xl' placeholder="Messages..."
                 onKeyPress={(e) => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
@@ -89,7 +91,9 @@ const ChatPage = () => {
                     }
                   }
                 }} />
-              <Button onClick={() => sendMessageHandler(selectedUser?._id)} className="text-2xl"><IoSend style={{ color: '#042035 !important' }} /></Button>
+              <div onClick={() => sendMessageHandler(selectedUser?._id)} className="absolute right-8 text-2xl cursor-pointer">
+                <IoSend style={{ color: '#042035 !important' }} />
+              </div>
             </div>
           </section>
         ) : (
