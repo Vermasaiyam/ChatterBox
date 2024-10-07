@@ -46,7 +46,7 @@ const EditProfile = () => {
         }
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:8000/api/user/profile/edit', formData, {
+            const res = await axios.post('https://chatterbox-aaxc.onrender.com/api/user/profile/edit', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },

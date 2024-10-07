@@ -22,7 +22,7 @@ const LeftSidebar = () => {
 
   const logoutHandler = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/user/logout', { withCredentials: true });
+      const res = await axios.get('https://chatterbox-aaxc.onrender.com/api/user/logout', { withCredentials: true });
       if (res.data.success) {
         navigate("/login");
         dispatch(setAuthUser(null));

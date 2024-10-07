@@ -9,7 +9,7 @@ const useGetAllMessage = () => {
     useEffect(() => {
         const fetchAllMessage = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/api/message/all/${selectedUser?._id}`, { withCredentials: true });
+                const res = await axios.get(`https://chatterbox-aaxc.onrender.com/api/message/all/${selectedUser?._id}`, { withCredentials: true });
                 if (res.data.success) {  
                     dispatch(setMessages(res.data.messages));
                 }

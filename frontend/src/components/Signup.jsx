@@ -31,7 +31,7 @@ const Signup = () => {
         console.log(input);
         try {
             setLoading(true);
-            const result = await axios.post('http://localhost:8000/api/user/register', input, {
+            const result = await axios.post('https://chatterbox-aaxc.onrender.com/api/user/register', input, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
