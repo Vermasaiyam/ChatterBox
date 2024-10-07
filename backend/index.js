@@ -6,17 +6,13 @@ import connectDB from "./utils/db.js";
 import userRoutes from "./routes/user.routes.js"
 import postRoutes from "./routes/post.routes.js"
 import messageRoutes from "./routes/message.routes.js"
+import { app, server } from "./socket/socket.js";
+import path from "path";
+ 
 dotenv.config({});
 
 const PORT = process.env.PORT || 8000;
-const app = express();
 
-// app.get('/', (req,res)=>{
-//     return res.status(200).json({
-//         message: "i m backend",
-//         success: true,
-//     })
-// })
 
 //middlewares
 app.use(express.json());
@@ -34,7 +30,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/message', messageRoutes);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     connectDB();
     console.log(`Server listen at port ${PORT}`);
 });
