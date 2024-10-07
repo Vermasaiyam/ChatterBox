@@ -22,14 +22,14 @@ const LeftSidebar = () => {
     try {
       const res = await axios.get('http://localhost:8000/api/user/logout', { withCredentials: true });
       if (res.data.success) {
+        navigate("/login");
         dispatch(setAuthUser(null));
         dispatch(setSelectedPost(null));
         dispatch(setPosts([]));
-        navigate("/login");
         toast.success(res.data.message);
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     }
   }
 

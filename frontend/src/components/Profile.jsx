@@ -1,6 +1,6 @@
 import useGetUserProfile from '@/hooks/getUserProfile';
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Button } from './ui/button';
@@ -8,6 +8,8 @@ import { Badge } from './ui/badge';
 import { AtSign, MessageCircle } from 'lucide-react';
 import { FaRegThumbsUp } from "react-icons/fa";
 import InitialsAvatar from 'react-initials-avatar';
+import CommentDialog from './CommentDialog';
+import { setSelectedPost } from '@/redux/postSlice';
 
 const Profile = () => {
   const params = useParams();
@@ -21,6 +23,7 @@ const Profile = () => {
   const isFollowing = false;
 
   const [activeTab, setActiveTab] = useState('posts');
+  const [open, setOpen] = useState(false);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -31,7 +34,7 @@ const Profile = () => {
   const displayedPost = activeTab === 'posts' ? userProfile?.posts : (activeTab === 'saved' ? userProfile?.bookmarks : likedPosts);
   console.log(displayedPost);
 
-
+  const dispatch = useDispatch();
 
   return (
     <div className='pt-14 flex max-w-5xl justify-center mx-auto pl-10'>
@@ -98,21 +101,33 @@ const Profile = () => {
             {
               displayedPost?.map((post) => {
                 return (
-                  <div key={post?._id} className='relative group cursor-pointer'>
-                    <img src={post.image} alt='postimage' className='rounded-sm my-2 w-full aspect-square object-cover' />
-                    <div className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-                      <div className='flex items-center text-white space-x-4'>
-                        <button className='flex items-center gap-2 hover:text-gray-300'>
-                          <FaRegThumbsUp size={'22px'} />
-                          <span>{post?.likes.length}</span>
-                        </button>
-                        <button className='flex items-center gap-2 hover:text-gray-300'>
-                          <MessageCircle />
-                          <span>{post?.comments.length}</span>
-                        </button>
+                  <div className="">
+
+
+                    <div onClick={() => {
+                      dispatch(setSelectedPost(post));
+                      setOpen(true);
+                    }}
+                      key={post?._id}
+                      className='relative group cursor-pointer'
+                    >
+                      <img src={post.image} alt='postimage' className='rounded-sm my-2 w-full aspect-square object-cover' />
+                      <div className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                        <div className='flex items-center text-white space-x-4'>
+                          <button className='flex items-center gap-2 hover:text-gray-300'>
+                            <FaRegThumbsUp size={'22px'} />
+                            <span>{post?.likes.length}</span>
+                          </button>
+                          <button className='flex items-center gap-2 hover:text-gray-300'>
+                            <MessageCircle />
+                            <span>{post?.comments.length}</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
+                    <CommentDialog open={open} setOpen={setOpen} />
                   </div>
+
                 )
               })
             }
