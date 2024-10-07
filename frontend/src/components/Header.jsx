@@ -1,13 +1,16 @@
 import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { Bell } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import InitialsAvatar from 'react-initials-avatar';
+import { Button } from './ui/button'
 
 const Header = () => {
 
-    const {user} = useSelector(store => store.auth);
+    const { user } = useSelector(store => store.auth);
+    const { likeNotification } = useSelector(store => store.realTimeNotification);
 
     return (
         <nav className="fixed w-full flex items-center justify-between h-[4rem] px-6 bg-white shadow-md z-10">
@@ -42,9 +45,36 @@ const Header = () => {
             <div className="flex items-center space-x-6 mx-3">
                 <button className="relative">
                     <Bell className='w-7 h-7 ' />
-                    <span className="absolute top-0 right-0 -mr-1 -mt-1 bg-red-500 rounded-full text-white text-xs w-4 h-4 flex items-center justify-center">
-                        3
-                    </span>
+                    {
+                        likeNotification.length > 0 && (
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <Button size='icon' className="rounded-full h-5 w-5 bg-red-600 hover:bg-red-600 absolute bottom-4">{likeNotification.length}</Button>
+                                </PopoverTrigger>
+                                <PopoverContent>
+                                    <div>
+                                        {
+                                            likeNotification.length === 0 ? (<p>No new notification</p>) : (
+                                                likeNotification.map((notification) => {
+                                                    return (
+                                                        <div key={notification.userId} className='flex items-center gap-2 my-2'>
+                                                            <Avatar>
+                                                                <AvatarImage src={notification.userDetails?.profilePicture} />
+                                                                <AvatarFallback>
+                                                                    <InitialsAvatar name={user?.username || "CN"} className="h-full w-full flex items-center justify-center text-sm bg-slate-200 p-2 rounded-full" />
+                                                                </AvatarFallback>
+                                                            </Avatar>
+                                                            <p className='text-sm'><span className='font-bold'>{notification.userDetails?.username}</span> liked your post.</p>
+                                                        </div>
+                                                    )
+                                                })
+                                            )
+                                        }
+                                    </div>
+                                </PopoverContent>
+                            </Popover>
+                        )
+                    }
                 </button>
 
                 {/* Profile Icon/Button */}
