@@ -12,42 +12,43 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setOnlineUsers } from './redux/chatSlice'
 import { useEffect } from 'react'
 import { setLikeNotification } from './redux/notificationSlice'
+import ProtectedRoutes from './components/ProtectedRoutes'
 
 const browserRouter = createBrowserRouter([
   {
     path: "/",
     element:
-      // <ProtectedRoutes>
-      <MainLayout />
-    // </ProtectedRoutes>
+      <ProtectedRoutes>
+        <MainLayout />
+      </ProtectedRoutes>
     ,
     children: [
       {
         path: '/',
         element:
-          // <ProtectedRoutes>
-          <Home />
-        // </ProtectedRoutes>
+          <ProtectedRoutes>
+            <Home />
+          </ProtectedRoutes>
       },
       {
         path: '/profile/:id',
         element:
-          // <ProtectedRoutes>
-          <Profile />
-        // </ProtectedRoutes>
+          <ProtectedRoutes>
+            <Profile />
+          </ProtectedRoutes>
       },
       {
         path: '/account/edit',
         element:
-          // <ProtectedRoutes>
-          <EditProfile />
-        // </ProtectedRoutes>
+          <ProtectedRoutes>
+            <EditProfile />
+          </ProtectedRoutes>
       },
       {
         path: '/chat',
-        element: //<ProtectedRoutes>
+        element: <ProtectedRoutes>
           <ChatPage />
-        // </ProtectedRoutes>
+        </ProtectedRoutes>
       },
     ]
   },
