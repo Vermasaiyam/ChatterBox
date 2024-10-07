@@ -30,6 +30,19 @@ app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/message', messageRoutes);
 
+
+// ----------------- DEPLOYMENT---------------------------------------
+
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
+app.get("*", (req,res)=>{
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+});
+
+
+// ----------------- DEPLOYMENT---------------------------------------
+
 server.listen(PORT, () => {
     connectDB();
     console.log(`Server listen at port ${PORT}`);

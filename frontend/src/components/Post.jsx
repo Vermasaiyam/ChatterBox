@@ -26,7 +26,7 @@ const Post = ({ post }) => {
     const [postLike, setPostLike] = useState(post.likes.length);
     const [comment, setComment] = useState(post.comments);
     const [bookmark, setBookmark] = useState(
-        userProfile.bookmarks.some(bookmark => bookmark._id === post?._id) || false
+        userProfile?.bookmarks?.some(bookmark => bookmark._id === post?._id) || false
     );
     console.log("yefgiuhsidjak", userProfile);
 
