@@ -10,6 +10,7 @@ import { toast } from 'sonner'
 import { setAuthUser } from '@/redux/authSlice'
 import InitialsAvatar from 'react-initials-avatar';
 import { Button } from './ui/button'
+import { setLikeNotification } from '@/redux/notificationSlice'
 
 const LeftSidebar = () => {
 
@@ -108,11 +109,17 @@ const LeftSidebar = () => {
                   <span>{item.text}</span>
                   {
                     item.text === "Notifications" && likeNotification.length > 0 && (
-                      <Popover>
+                      <Popover
+                        onOpenChange={(isOpen) => {
+                          if (!isOpen) {
+                            dispatch(setLikeNotification(null));
+                          }
+                        }}
+                      >
                         <PopoverTrigger asChild>
                           <Button size='icon' className="rounded-full h-5 w-5 bg-red-600 hover:bg-red-600 absolute bottom-6 left-6">{likeNotification.length}</Button>
                         </PopoverTrigger>
-                        <PopoverContent>
+                        <PopoverContent >
                           <div>
                             {
                               likeNotification.length === 0 ? (<p>No new notification</p>) : (
