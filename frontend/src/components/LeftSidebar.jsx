@@ -8,14 +8,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import CreatePost from './CreatePost'
 import { toast } from 'sonner'
 import { setAuthUser } from '@/redux/authSlice'
-// import { NameInitialsAvatar } from 'react-name-initials-avatar';
 import InitialsAvatar from 'react-initials-avatar';
+import { Button } from './ui/button'
 
 const LeftSidebar = () => {
 
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const { user } = useSelector(store => store.auth);
+  const { likeNotification } = useSelector(store => store.realTimeNotification);
   const dispatch = useDispatch();
 
   const logoutHandler = async () => {
@@ -105,7 +106,7 @@ const LeftSidebar = () => {
                 >
                   {item.icon}
                   <span>{item.text}</span>
-                  {/* {
+                  {
                     item.text === "Notifications" && likeNotification.length > 0 && (
                       <Popover>
                         <PopoverTrigger asChild>
@@ -120,9 +121,11 @@ const LeftSidebar = () => {
                                     <div key={notification.userId} className='flex items-center gap-2 my-2'>
                                       <Avatar>
                                         <AvatarImage src={notification.userDetails?.profilePicture} />
-                                        <AvatarFallback>CN</AvatarFallback>
+                                        <AvatarFallback>
+                                          <InitialsAvatar name={user?.username || "CN"} className="h-full w-full flex items-center justify-center text-sm bg-slate-200 p-2 rounded-full" />
+                                        </AvatarFallback>
                                       </Avatar>
-                                      <p className='text-sm'><span className='font-bold'>{notification.userDetails?.username}</span> liked your post</p>
+                                      <p className='text-sm'><span className='font-bold'>{notification.userDetails?.username}</span> liked your post.</p>
                                     </div>
                                   )
                                 })
@@ -132,7 +135,7 @@ const LeftSidebar = () => {
                         </PopoverContent>
                       </Popover>
                     )
-                  } */}
+                  }
                 </div>
               )
             })

@@ -11,6 +11,7 @@ import { setSocket } from './redux/socketSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { setOnlineUsers } from './redux/chatSlice'
 import { useEffect } from 'react'
+import { setLikeNotification } from './redux/notificationSlice'
 
 const browserRouter = createBrowserRouter([
   {
@@ -80,9 +81,9 @@ function App() {
         dispatch(setOnlineUsers(onlineUsers));
       });
 
-      // socketio.on('notification', (notification) => {
-      //   dispatch(setLikeNotification(notification));
-      // });
+      socketio.on('notification', (notification) => {
+        dispatch(setLikeNotification(notification));
+      });
 
       // if closing the page then offline user
       return () => {
