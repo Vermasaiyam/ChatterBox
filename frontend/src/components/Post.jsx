@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setPosts, setSelectedPost } from '@/redux/postSlice'
 import { Link } from 'react-router-dom'
 import InitialsAvatar from 'react-initials-avatar';
+import moment from 'moment'
 
 const Post = ({ post }) => {
     const { userProfile, user } = useSelector(store => store.auth);
@@ -213,12 +214,17 @@ const Post = ({ post }) => {
             </p>
             {
                 comment.length > 0 && (
-                    <span onClick={() => {
-                        dispatch(setSelectedPost(post));
-                        setOpen(true);
-                    }} className='cursor-pointer text-sm text-gray-400'>View all {comment.length} comments</span>
+                    <div className="">
+                        <span onClick={() => {
+                            dispatch(setSelectedPost(post));
+                            setOpen(true);
+                        }} className='cursor-pointer text-sm text-gray-400'>View all {comment.length} comments</span>
+                        <br />
+                    </div>
                 )
             }
+
+            <span className='text-sm text-gray-400'>{`${moment(post.createdAt).fromNow()}`}</span>
             <CommentDialog open={open} setOpen={setOpen} />
             <div className='flex items-center justify-between my-2'>
                 <input
