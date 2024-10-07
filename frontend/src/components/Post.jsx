@@ -107,6 +107,17 @@ const Post = ({ post }) => {
         }
     }
 
+    const bookmarkHandler = async () => {
+        try {
+            const res = await axios.get(`http://localhost:8000/api/post/${post?._id}/bookmark`, { withCredentials: true });
+            if (res.data.success) {
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className='mt-8 w-full max-w-[26rem] mx-auto bg-white p-4 rounded-xl'>
             <div className='flex items-center justify-between'>
@@ -174,7 +185,7 @@ const Post = ({ post }) => {
                     <Send className='cursor-pointer hover:text-gray-600' />
                 </div>
                 <Bookmark
-                    // onClick={bookmarkHandler} 
+                    onClick={bookmarkHandler} 
                     className='cursor-pointer hover:text-gray-600' />
             </div>
 
