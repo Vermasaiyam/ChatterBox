@@ -99,7 +99,7 @@ const Profile = () => {
           </div>
           <div className='grid grid-cols-3 gap-2'>
             {
-              displayedPost?.map((post) => {
+              displayedPost?.slice().reverse().map((post) => {
                 return (
                   <div className="">
 
