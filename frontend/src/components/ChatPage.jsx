@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { setSelectedUser } from '@/redux/authSlice';
-import { Input } from './ui/input';
 import { Button } from './ui/button';
-import { MessageCircleCode } from 'lucide-react';
+import { Input } from './ui/input';
 import Messages from './Messages';
 import axios from 'axios';
-// import { setMessages } from '@/redux/chatSlice';
+import { setSelectedUser } from '@/redux/authSlice';
+import { setMessages } from '@/redux/chatSlice';
 import InitialsAvatar from 'react-initials-avatar';
 import { IoSend } from "react-icons/io5";
 import { IoChatbubblesOutline } from "react-icons/io5";
@@ -20,7 +19,7 @@ const ChatPage = () => {
 
   const sendMessageHandler = async (receiverId) => {
     try {
-      const res = await axios.post(`https://instaclone-g9h5.onrender.com/api/v1/message/send/${receiverId}`, { textMessage }, {
+      const res = await axios.post(`http://localhost:8000/api/message/send/${receiverId}`, { textMessage }, {
         headers: {
           'Content-Type': 'application/json'
         },
