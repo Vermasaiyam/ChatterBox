@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 // import useGetAllMessage from '@/hooks/useGetAllMessage'
 // import useGetRTM from '@/hooks/useGetRTM'
+import InitialsAvatar from 'react-initials-avatar';
 
 const Messages = ({ selectedUser }) => {
     // useGetRTM();
@@ -17,7 +18,7 @@ const Messages = ({ selectedUser }) => {
                 <div className='flex flex-col items-center justify-center'>
                     <Avatar className="h-20 w-20">
                         <AvatarImage src={selectedUser?.profilePicture} alt='profile' />
-                        <AvatarFallback>CN</AvatarFallback>
+                        <AvatarFallback><InitialsAvatar name={selectedUser?.username || "CN"} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full text-4xl" /></AvatarFallback>
                     </Avatar>
                     <span>{selectedUser?.username}</span>
                     <Link to={`/profile/${selectedUser?._id}`}><Button className="h-8 my-2" variant="secondary">View profile</Button></Link>

@@ -73,7 +73,7 @@ const ChatPage = () => {
                       <div className='flex gap-3 items-center px-3 py-2 border-b border-gray-300 sticky top-0 bg-white z-10'>
                           <Avatar>
                               <AvatarImage src={selectedUser?.profilePicture} alt='profile' />
-                              <AvatarFallback>CN</AvatarFallback>
+                              <AvatarFallback><InitialsAvatar name={selectedUser?.username || "CN"} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full text-4xl" /></AvatarFallback>
                           </Avatar>
                           <div className='flex flex-col'>
                               <span>{selectedUser?.username}</span>
