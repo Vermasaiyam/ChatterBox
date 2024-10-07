@@ -122,7 +122,7 @@ export const getProfile = async (req, res) => {
 export const editProfile = async (req, res) => {
     try {
         const userId = req.id;
-        const { bio, gender } = req.body;
+        const { bio, gender, username } = req.body;
         const profilePicture = req.file;
         let cloudResponse;
 
@@ -140,6 +140,7 @@ export const editProfile = async (req, res) => {
         };
         if (bio) user.bio = bio;
         if (gender) user.gender = gender;
+        if (username) user.username = username;
         if (profilePicture) user.profilePicture = cloudResponse.secure_url;
 
         await user.save();

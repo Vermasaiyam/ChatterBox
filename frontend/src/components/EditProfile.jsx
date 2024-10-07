@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { setAuthUser } from '@/redux/authSlice';
 import InitialsAvatar from 'react-initials-avatar';
+import { Input } from './ui/input';
 
 const EditProfile = () => {
     const imageRef = useRef();
@@ -18,7 +19,8 @@ const EditProfile = () => {
     const [input, setInput] = useState({
         profilePhoto: user?.profilePicture,
         bio: user?.bio,
-        gender: user?.gender
+        gender: user?.gender,
+        username: user?.username,
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -38,6 +40,7 @@ const EditProfile = () => {
         const formData = new FormData();
         formData.append("bio", input.bio);
         formData.append("gender", input.gender);
+        formData.append("username", input.username);
         if (input.profilePhoto) {
             formData.append("profilePhoto", input.profilePhoto);
         }
@@ -54,7 +57,8 @@ const EditProfile = () => {
                     ...user,
                     bio: res.data.user?.bio,
                     profilePicture: res.data.user?.profilePicture,
-                    gender: res.data.user.gender
+                    gender: res.data.user?.gender,
+                    username: res.data.user?.username,
                 };
                 dispatch(setAuthUser(updatedUserData));
                 navigate(`/profile/${user?._id}`);
@@ -85,6 +89,10 @@ const EditProfile = () => {
                     </div>
                     <input ref={imageRef} onChange={fileChangeHandler} type='file' className='hidden' />
                     <Button onClick={() => imageRef?.current.click()} className='bg-[#042035] h-8 hover:bg-[#165686]'>Change photo</Button>
+                </div>
+                <div>
+                    <h1 className='font-semibold text-xl mb-2'>Username</h1>
+                    <Input value={input.username} onChange={(e) => setInput({ ...input, username: e.target.value })} name='username' className="focus-visible:ring-transparent resize-none" />
                 </div>
                 <div>
                     <h1 className='font-semibold text-xl mb-2'>Bio</h1>
