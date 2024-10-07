@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { Link, useNavigate } from 'react-router-dom'
@@ -6,10 +6,13 @@ import { Loader2 } from 'lucide-react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 import { toast } from 'sonner';
+import { useSelector } from 'react-redux';
 
 const Signup = () => {
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
+
+    const {user} = useSelector(store=>store.auth);
 
     const [input, setInput] = useState({
         username: "",
@@ -49,8 +52,13 @@ const Signup = () => {
             console.log(error);
             toast.error(error.response.data.message);
         }
-
     }
+
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [])
 
     return (
         <div className='flex flex-col items-center w-screen h-screen justify-center'>
