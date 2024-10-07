@@ -5,6 +5,7 @@ import { Bookmark, MessageCircle, MoreHorizontal, Send } from 'lucide-react'
 import { Button } from './ui/button'
 // import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
 import axios from 'axios'
 import { toast } from 'sonner'
 import { Badge } from './ui/badge'
@@ -15,7 +16,7 @@ import { Link } from 'react-router-dom'
 import InitialsAvatar from 'react-initials-avatar';
 
 const Post = ({ post }) => {
-    const { user } = useSelector(store => store.auth);
+    const { userProfile, user } = useSelector(store => store.auth);
     const { posts } = useSelector(store => store.post);
 
     const [text, setText] = useState("");
@@ -23,6 +24,12 @@ const Post = ({ post }) => {
     const [liked, setLiked] = useState(post.likes.includes(user?._id) || false);
     const [postLike, setPostLike] = useState(post.likes.length);
     const [comment, setComment] = useState(post.comments);
+    const [bookmark, setBookmark] = useState(
+        userProfile.bookmarks.some(bookmark => bookmark._id === post?._id) || false
+    );
+    console.log("yefgiuhsidjak", userProfile);
+
+
 
     const dispatch = useDispatch();
 
@@ -111,6 +118,7 @@ const Post = ({ post }) => {
         try {
             const res = await axios.get(`http://localhost:8000/api/post/${post?._id}/bookmark`, { withCredentials: true });
             if (res.data.success) {
+                setBookmark(!bookmark);
                 toast.success(res.data.message);
             }
         } catch (error) {
@@ -184,9 +192,15 @@ const Post = ({ post }) => {
                     />
                     <Send className='cursor-pointer hover:text-gray-600' />
                 </div>
-                <Bookmark
-                    onClick={bookmarkHandler} 
-                    className='cursor-pointer hover:text-gray-600' />
+                {
+
+                    bookmark ?
+                        <FaBookmark onClick={bookmarkHandler} size={'20'} className='cursor-pointer text-[#042035]' /> :
+                        <Bookmark
+                            onClick={bookmarkHandler}
+                            className='cursor-pointer hover:text-gray-600' />
+                }
+
             </div>
 
             <span className='font-medium block mb-2'>{postLike} likes</span>

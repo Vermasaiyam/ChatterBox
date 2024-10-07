@@ -13,6 +13,6 @@ router.route("/:id/dislike").get(Authenticated, dislikePost);
 router.route("/:id/comment").post(Authenticated, addComment); 
 router.route("/:id/comment/all").post(Authenticated, getCommentsOfPost);
 router.route("/delete/:id").delete(Authenticated, deletePost);
-router.route("/:id/bookmark").post(Authenticated, bookmarkPost);
+router.route("/:id/bookmark").get(Authenticated, bookmarkPost);
 
 export default router;
