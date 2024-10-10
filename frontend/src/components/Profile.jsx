@@ -1,5 +1,5 @@
 import useGetUserProfile from '@/hooks/getUserProfile';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
@@ -42,7 +42,7 @@ const Profile = () => {
 
   const followOrUnfollowUser = async () => {
     try {
-      const res = await axios.put(`https://chatterbox-aaxc.onrender.com/api/user/followorunfollow/${targetUserId}`);
+      const res = await axios.put(`https://chatterbox-aaxc.onrender.com/api/user/followorunfollow/${userId}`);
 
       if (res.data.success) {
         // Update the user data in the store with new following/followers list
@@ -59,6 +59,10 @@ const Profile = () => {
     }
   }
 
+
+  useEffect(() => {
+    useGetUserProfile(userId);
+  }, [user]);
 
 
   return (
