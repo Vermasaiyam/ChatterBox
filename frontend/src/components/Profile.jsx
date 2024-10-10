@@ -10,6 +10,7 @@ import { FaRegThumbsUp } from "react-icons/fa";
 import InitialsAvatar from 'react-initials-avatar';
 import CommentDialog from './CommentDialog';
 import { setSelectedPost } from '@/redux/postSlice';
+import { setUserProfile } from '@/redux/authSlice';
 
 const Profile = () => {
   const params = useParams();
@@ -17,10 +18,13 @@ const Profile = () => {
   useGetUserProfile(userId);
 
   const { userProfile, user } = useSelector(store => store.auth);
+  // console.log("user = ", user);
+  // console.log("userProfile = ", userProfile);
+
   const { posts } = useSelector(store => store.post);
 
   const isLoggedInUserProfile = user?._id === userProfile?._id;
-  const isFollowing = false;
+  const isFollowing = user?.following.includes(userId);
 
   const [activeTab, setActiveTab] = useState('posts');
   const [open, setOpen] = useState(false);
@@ -35,6 +39,26 @@ const Profile = () => {
   console.log(displayedPost);
 
   const dispatch = useDispatch();
+
+  const followOrUnfollowUser = async () => {
+    try {
+      const res = await axios.put(`https://chatterbox-aaxc.onrender.com/api/user/followorunfollow/${targetUserId}`);
+
+      if (res.data.success) {
+        // Update the user data in the store with new following/followers list
+        const updatedUserData = {
+          ...user,
+          following: res?.data.user.following,
+        };
+        dispatch(setAuthUser(updatedUserData));
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.error('Error following/unfollowing:', error);
+    }
+  }
+
+
 
   return (
     <div className='pt-14 flex max-w-5xl justify-center mx-auto pl-10'>
@@ -60,11 +84,11 @@ const Profile = () => {
                   ) : (
                     isFollowing ? (
                       <>
-                        <Button variant='secondary' className='h-8'>Unfollow</Button>
+                        <Button variant='secondary' className='h-8' onClick={followOrUnfollowUser}>Unfollow</Button>
                         <Button variant='secondary' className='h-8'>Message</Button>
                       </>
                     ) : (
-                      <Button className='bg-[#042035] hover:bg-[#165686] h-8'>Follow</Button>
+                      <Button className='bg-[#042035] hover:bg-[#165686] h-8' onClick={followOrUnfollowUser}>Follow</Button>
                     )
                   )
                 }
