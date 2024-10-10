@@ -55,6 +55,7 @@ const Profile = () => {
       }
     } catch (error) {
       console.error('Error following/unfollowing:', error);
+      toast.error(error.response.data.messasge);
     }
   }
 
