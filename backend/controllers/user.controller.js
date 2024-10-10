@@ -97,19 +97,30 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
     try {
-        return res.cookie("token", "", { maxAge: 0 }).json({
-            message: 'Logged out successfully.',
+        // Clear the cookie
+        res.cookie("token", "", {
+            httpOnly: true,
+            sameSite: 'Strict',
+            expires: new Date(0)
+        });
+
+        return res.status(200).json({
             success: true,
+            message: "Logged out successfully"
         });
     } catch (error) {
-        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Logout failed",
+            error: error.message
+        });
     }
 };
 
 export const getProfile = async (req, res) => {
     try {
         const userId = req.params.id;
-        let user = await User.findById(userId).populate({path:'posts', createdAt:-1}).populate('bookmarks');
+        let user = await User.findById(userId).populate({ path: 'posts', createdAt: -1 }).populate('bookmarks');
         return res.status(200).json({
             user,
             success: true
@@ -175,7 +186,7 @@ export const getSuggestedUsers = async (req, res) => {
 
 export const followOrUnfollow = async (req, res) => {
     try {
-        const userId = req.id; 
+        const userId = req.id;
         const targetUserId = req.params.id;
         if (userId === targetUserId) {
             return res.status(400).json({
