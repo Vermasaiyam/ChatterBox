@@ -59,7 +59,7 @@ const Profile = () => {
       // Fetch whether the user is following this profile
       const checkFollowStatus = async () => {
         try {
-          userProfile?.followers.includes(userId);
+          const res = userProfile?.followers.includes(userId);
           console.log(res);
           setIsFollowing(res); // Set the initial follow status
         } catch (error) {
