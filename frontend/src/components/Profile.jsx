@@ -54,6 +54,22 @@ const Profile = () => {
     }
   }, [userProfile?._id, user?._id]); // Run whenever the userProfile or user changes
 
+  useEffect(() => {
+    if (userProfile?._id && user?._id) {
+      // Fetch whether the user is following this profile
+      const checkFollowStatus = async () => {
+        try {
+          const res = user?.following.includes(userId);
+          console.log(res);
+          setIsFollowing(res); // Set the initial follow status
+        } catch (error) {
+          console.error("Error fetching follow status:", error);
+        }
+      };
+      checkFollowStatus();
+    }
+  }, []); // Run on loading of page
+
   const followOrUnfollow = async () => {
     if (!userProfile?._id) {
       console.log("User profile ID is missing");
