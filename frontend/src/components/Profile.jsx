@@ -41,17 +41,9 @@ const Profile = () => {
       // Fetch whether the user is following this profile
       const checkFollowStatus = async () => {
         try {
-          const res = await axios.get(
-            `/api/user/isfollowing/${userProfile?._id}`, // API to check follow status
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-              withCredentials: true,
-            }
-          );
+          const res = user?.following.includes(userId);
           console.log(res);
-          setIsFollowing(res.data.isFollowing); // Set the initial follow status
+          setIsFollowing(res); // Set the initial follow status
         } catch (error) {
           console.error("Error fetching follow status:", error);
         }
@@ -67,7 +59,7 @@ const Profile = () => {
     }
     try {
       const res = await axios.post(
-        `/api/user/followorunfollow/${userProfile?._id}`,
+        `https://chatterbox-aaxc.onrender.com/api/user/followorunfollow/${userProfile?._id}`,
         {},
         {
           headers: {
