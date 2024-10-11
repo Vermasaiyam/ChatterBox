@@ -22,7 +22,7 @@ const Profile = () => {
   const { posts } = useSelector(store => store.post);
 
   const isLoggedInUserProfile = user?._id === userProfile?._id;
-  const [isFollowing, setIsFollowing] = useState(user?.following.includes(userId));
+  const [isFollowing, setIsFollowing] = useState(userProfile?.followers.includes(userId));
 
   const [activeTab, setActiveTab] = useState('posts');
   const [open, setOpen] = useState(false);
@@ -43,7 +43,7 @@ const Profile = () => {
       // Fetch whether the user is following this profile
       const checkFollowStatus = async () => {
         try {
-          const res = user?.following.includes(userId);
+          const res = userProfile?.followers.includes(userId);
           console.log(res);
           setIsFollowing(res); // Set the initial follow status
         } catch (error) {
@@ -59,7 +59,7 @@ const Profile = () => {
       // Fetch whether the user is following this profile
       const checkFollowStatus = async () => {
         try {
-          const res = user?.following.includes(userId);
+          userProfile?.followers.includes(userId);
           console.log(res);
           setIsFollowing(res); // Set the initial follow status
         } catch (error) {
