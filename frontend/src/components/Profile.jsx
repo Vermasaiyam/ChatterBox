@@ -20,7 +20,7 @@ const Profile = () => {
   const { posts } = useSelector(store => store.post);
 
   const isLoggedInUserProfile = user?._id === userProfile?._id;
-  const isFollowing = false;
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const [activeTab, setActiveTab] = useState('posts');
   const [open, setOpen] = useState(false);
@@ -35,6 +35,56 @@ const Profile = () => {
   console.log(displayedPost);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userProfile?._id && user?._id) {
+      // Fetch whether the user is following this profile
+      const checkFollowStatus = async () => {
+        try {
+          const res = await axios.get(
+            `/api/user/isfollowing/${userProfile?._id}`, // API to check follow status
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            }
+          );
+          console.log(res);
+          setIsFollowing(res.data.isFollowing); // Set the initial follow status
+        } catch (error) {
+          console.error("Error fetching follow status:", error);
+        }
+      };
+      checkFollowStatus();
+    }
+  }, [userProfile?._id, user?._id]); // Run whenever the userProfile or user changes
+
+  const followOrUnfollow = async () => {
+    if (!userProfile?._id) {
+      console.log("User profile ID is missing");
+      return;
+    }
+    try {
+      const res = await axios.post(
+        `/api/user/followorunfollow/${userProfile?._id}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+      console.log(res.data);
+      if (res.data.success) {
+        toast.success(res.data.message);
+        setIsFollowing(!isFollowing); // Toggle follow status
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className='pt-14 flex max-w-5xl justify-center mx-auto pl-10'>
@@ -60,11 +110,11 @@ const Profile = () => {
                   ) : (
                     isFollowing ? (
                       <>
-                        <Button variant='secondary' className='h-8'>Unfollow</Button>
+                        <Button variant='secondary' className='h-8' onClick={followOrUnfollow}>Unfollow</Button>
                         <Button variant='secondary' className='h-8'>Message</Button>
                       </>
                     ) : (
-                      <Button className='bg-[#042035] hover:bg-[#165686] h-8'>Follow</Button>
+                      <Button className='bg-[#042035] hover:bg-[#165686] h-8' onClick={followOrUnfollow}>Follow</Button>
                     )
                   )
                 }
