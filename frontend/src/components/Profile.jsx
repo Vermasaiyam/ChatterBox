@@ -10,6 +10,8 @@ import { FaRegThumbsUp } from "react-icons/fa";
 import InitialsAvatar from 'react-initials-avatar';
 import CommentDialog from './CommentDialog';
 import { setSelectedPost } from '@/redux/postSlice';
+import axios from 'axios';
+import { toast } from "sonner";
 
 const Profile = () => {
   const params = useParams();
