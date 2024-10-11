@@ -77,7 +77,7 @@ const LeftSidebar = () => {
   ]
   return (
     <div className='fixed top-[4rem] z-10 left-0 px-4 border-r bg-white border-t border-gray-300 w-[16%] h-screen'>
-      <div className='flex flex-col'>
+      <div className='flex flex-col h-full overflow-y-auto'>
         <div>
           {
             sidebarItems.map((item, index) => {

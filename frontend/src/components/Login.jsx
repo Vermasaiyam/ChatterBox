@@ -120,7 +120,7 @@ const Login = () => {
                     )
                 }
                 <span className='text-center'>
-                    Dosen't have an account?
+                    Doesn't have an account?
                     <Link to="/signup" className='text-blue-600 mx-1'>Signup</Link>
                 </span>
             </form>

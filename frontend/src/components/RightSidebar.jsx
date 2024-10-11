@@ -10,7 +10,7 @@ const RightSidebar = () => {
 
   return (
     <div className='fixed right-0 mt-[6rem] w-[22%] my-10  bg-white p-7 mr-4' style={{ minHeight: 'calc(100vh - 8rem)',maxHeight: 'calc(100vh - 7rem)' , borderRadius: "0.7rem"}}>
-      <div className='w-full flex items-center gap-2 pb-6'>
+      <div className='w-full flex items-center gap-2 pb-6 h-full overflow-y-auto'>
         <Link to={`/profile/${user?._id}`}>
           <Avatar>
             <AvatarImage src={user?.profilePicture} alt="post_image" />
