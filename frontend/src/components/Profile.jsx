@@ -22,7 +22,7 @@ const Profile = () => {
   const { posts } = useSelector(store => store.post);
 
   const isLoggedInUserProfile = user?._id === userProfile?._id;
-  const [isFollowing, setIsFollowing] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(user?.following.includes(userId));
 
   const [activeTab, setActiveTab] = useState('posts');
   const [open, setOpen] = useState(false);

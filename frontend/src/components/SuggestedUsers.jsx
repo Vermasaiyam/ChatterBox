@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import InitialsAvatar from 'react-initials-avatar';
 
 const SuggestedUsers = () => {
+    // const { userProfile, user } = useSelector(store => store.auth);
     const { suggestedUsers } = useSelector(store => store.auth);
     return (
         <div className='my-6 overflow-y-scroll'>
@@ -15,20 +16,24 @@ const SuggestedUsers = () => {
             {
                 suggestedUsers.map((user) => {
                     return (
-                        <div key={user._id} className='flex items-center justify-between my-5'>
+                        <div key={user._id} className='flex items-center justify-between my-5' title="Open user to follow">
                             <div className='flex items-center gap-2'>
                                 <Link to={`/profile/${user?._id}`}>
                                     <Avatar>
                                         <AvatarImage src={user?.profilePicture} alt="post_image" />
-                                        <AvatarFallback><InitialsAvatar name={user?.username || "CN"} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" /></AvatarFallback>
+                                        <AvatarFallback>
+                                            <InitialsAvatar name={user?.username || "CN"} className="h-full w-full flex items-center justify-center bg-slate-200 p-2 rounded-full" />
+                                        </AvatarFallback>
                                     </Avatar>
                                 </Link>
                                 <div>
-                                    <h1 className='font-semibold text-sm'><Link to={`/profile/${user?._id}`}>{user?.username}</Link></h1>
+                                    <h1 className='font-semibold text-sm'>
+                                        <Link to={`/profile/${user?._id}`}>{user?.username}</Link>
+                                    </h1>
                                     <span className='text-gray-600 text-sm text-ellipsis line-clamp-1'>{user?.bio}</span>
                                 </div>
                             </div>
-                            <span className='text-[#165686] text-xs font-bold cursor-pointer hover:text-[#3495d6]'>Follow</span>
+                            {/* <span className='text-[#165686] text-xs font-bold cursor-pointer hover:text-[#3495d6]'>Follow</span> */}
                         </div>
                     )
                 })
