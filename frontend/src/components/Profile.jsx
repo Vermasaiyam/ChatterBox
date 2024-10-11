@@ -1,5 +1,5 @@
 import useGetUserProfile from '@/hooks/getUserProfile';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
