@@ -150,10 +150,10 @@ const Post = ({ post }) => {
                         onInteractOutside={() => setOpen1(false)} // Close dialog when clicking outside
                     >
                         {post?.author?._id !== user?._id && (
-                            <Button variant='ghost' className="cursor-pointer w-fit text-[#ED4956] font-bold">
+                            <Button variant='ghost' className="cursor-pointer w-fit font-bold">
                                 {
                                     (userProfile?.following.includes(post.author?._id)) ? (
-                                        <div className="">Unfollow</div>
+                                        <div className="text-[#ED4956] ">Unfollow</div>
                                     ) : (
                                         <div className="">Follow</div>
                                     )
