@@ -153,9 +153,9 @@ const Post = ({ post }) => {
                             <Button variant='ghost' className="cursor-pointer w-fit font-bold">
                                 {
                                     (userProfile?.following.includes(post.author?._id)) ? (
-                                        <div className="text-[#ED4956] ">Unfollow</div>
+                                        <div className="text-[#ED4956]">Unfollow</div>
                                     ) : (
-                                        <div className="">Follow</div>
+                                        <div className="text-[#042035]">Follow</div>
                                     )
                                 }
                             </Button>
