@@ -121,7 +121,9 @@ const Profile = () => {
                     isFollowing ? (
                       <>
                         <Button variant='secondary' className='h-8' onClick={followOrUnfollow}>Unfollow</Button>
-                        <Button variant='secondary' className='h-8'>Message</Button>
+                        <Link to={'/chat'} className="">
+                          <Button variant='secondary' className='h-8'>Message</Button>
+                        </Link>
                       </>
                     ) : (
                       <Button className='bg-[#042035] hover:bg-[#165686] h-8' onClick={followOrUnfollow}>Follow</Button>
