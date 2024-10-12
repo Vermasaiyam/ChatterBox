@@ -151,12 +151,24 @@ const Post = ({ post }) => {
                     >
                         {post?.author?._id !== user?._id && (
                             <Button variant='ghost' className="cursor-pointer w-fit text-[#ED4956] font-bold">
-                                Unfollow
+                                {
+                                    (userProfile?.following.includes(post.author?._id)) ? (
+                                        <div className="">Unfollow</div>
+                                    ) : (
+                                        <div className="">Follow</div>
+                                    )
+                                }
                             </Button>
                         )}
 
                         <Button variant='ghost' className="cursor-pointer w-fit">
-                            Add to favorites
+                            {
+                                bookmark ? (
+                                    <div className="" onClick={bookmarkHandler} >Remove from Favourites</div>
+                                ) : (
+                                    <div className="" onClick={bookmarkHandler} >Add to Favourites</div>
+                                )
+                            }
                         </Button>
 
                         {user && user?._id === post?.author._id && (
